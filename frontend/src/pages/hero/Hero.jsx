@@ -25,18 +25,18 @@ export default function HeroWithNavBar() {
   return (
     <div className=" h-screen overflow-hidden">
       <Navbar isBlurred maxWidth="xl">
-        <NavbarContent className="sm:hidden" justify="start">
+        <NavbarContent className="md:hidden" justify="start">
           <NavbarMenuToggle />
         </NavbarContent>
-        <NavbarContent className="pr-3" justify="center">
+        <NavbarContent className="flex md:hidden pr-3" justify="center">
           <NavbarBrand>
-            <Image width={150} src={logo} />
+            <Image width={170} src={logo} />
           </NavbarBrand>
         </NavbarContent>
-        <NavbarContent className="hidden sm:flex gap-10 ">
-          <NavbarBrand>
-            <Image width={250} src={logo} />
-          </NavbarBrand>
+        <NavbarBrand className="hidden md:flex">
+          <Image width={200} src={logo} />
+        </NavbarBrand>
+        <NavbarContent className="hidden md:flex gap-10 ">
           <NavbarItem>
             <Button as={Link} variant="light">
               Map
