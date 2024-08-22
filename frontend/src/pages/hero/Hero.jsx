@@ -38,7 +38,7 @@ export default function HeroWithNavBar() {
         </NavbarBrand>
         <NavbarContent className="hidden md:flex gap-10 ">
           <NavbarItem>
-            <Button as={Link} variant="light">
+            <Button as={Link} href="map" variant="light">
               Map
             </Button>
           </NavbarItem>
@@ -77,7 +77,7 @@ export default function HeroWithNavBar() {
             alt="gradient"
           />
         </div>
-        <section className="max-w-screen-xl mx-auto px-4 py-28 gap-12 md:px-8 flex flex-col justify-center items-center">
+        <section className="max-w-screen-xl mx-auto px-4 py-28 gap-15 md:px-8 flex flex-col justify-center items-center">
           <motion.div
             initial={{ y: 5, opacity: 0 }}
             animate={{
@@ -85,7 +85,7 @@ export default function HeroWithNavBar() {
               opacity: 1,
             }}
             transition={{ duration: 0.5 }}
-            className="flex flex-col justify-center items-center space-y-5 max-w-4xl mx-auto text-center"
+            className="flex flex-col justify-center items-center space-y-7 max-w-4xl mx-auto text-center"
           >
             <Chip variant="shadow" color="default">
               Experience AI-Driven Urban Planning!
