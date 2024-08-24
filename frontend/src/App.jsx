@@ -7,6 +7,7 @@ import Hero from './pages/hero/Hero';
 import Map from './pages/map/Map';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Test from './pages/test/Test';
 
 function App() {
   const url = 'http://localhost:3002';
@@ -33,6 +34,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Hero />} />
         <Route path="/map" element={<Map />} />
+        <Route path="/test" element={<Test />} />
       </Routes>
     </Router>
   );

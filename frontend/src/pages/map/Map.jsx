@@ -15,14 +15,33 @@ const MapComponent = () => {
     zoom: 15,
   });
 
-  const [marker, setMarker] = useState(null);
+  const [marker, setMarker] = useState({
+    longitude: -81.200619,
+    latitude: 28.602174,
+  });
   const [popupInfo, setPopupInfo] = useState(null);
   const [markerPosition, setMarkerPosition] = useState(null);
   const [popupPosition, setPopupPosition] = useState(null);
 
   const mapRef = useRef();
+  const markerRef = useRef(null);
 
   const handleMapClick = (event) => {
+    const { lngLat } = event;
+    setMarker({
+      longitude: lngLat.lng,
+      latitude: lngLat.lat,
+    });
+    setPopupInfo({
+      longitude: lngLat.lng,
+      latitude: lngLat.lat,
+      info: `Coordinates: [ ${lngLat.lat.toFixed(6)}, ${lngLat.lng.toFixed(
+        6
+      )}]`,
+    });
+  };
+
+  const handleMarkerDrag = (event) => {
     const { lngLat } = event;
     setMarker({
       longitude: lngLat.lng,
@@ -104,13 +123,20 @@ const MapComponent = () => {
         <GeolocateControl />
       </Map>
 
-      {/* Custom Marker */}
+      {/* Draggable Marker */}
       {marker && markerPosition && (
         <div
-          className="absolute"
+          ref={markerRef}
+          className="absolute cursor-pointer"
           style={{
             ...markerPosition,
             transform: 'translate(-50%, -100%)',
+          }}
+          onMouseDown={() => {
+            document.addEventListener('mousemove', handleMarkerDrag);
+            document.addEventListener('mouseup', () => {
+              document.removeEventListener('mousemove', handleMarkerDrag);
+            });
           }}
         >
           <div className="bg-red-500 w-6 h-6 rounded-full border-2 border-white"></div>

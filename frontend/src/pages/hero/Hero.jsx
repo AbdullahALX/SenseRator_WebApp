@@ -98,12 +98,12 @@ export default function HeroWithNavBar() {
             </h1>
             <p className="max-w-2xl mx-auto text-foreground/80 text-balance">
               Semi-Real-Time Mapping and AI Analysis for Smarter, Safer, and
-              More Livable Urban Spaces.
+              More Livable Urban Spaces
             </p>
             <Input
               type="email"
               label="Email"
-              description="Stay updated with the latest in AI-driven urban planning technology."
+              description="Stay updated with the latest in AI-driven urban planning technology"
               className="max-w-lg"
             />
             <div className="items-center justify-center gap-x-3 space-y-3 sm:flex sm:space-y-0">
