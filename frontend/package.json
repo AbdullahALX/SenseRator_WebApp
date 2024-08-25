@@ -10,9 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@iconify/react": "^5.0.2",
     "@nextui-org/react": "^2.4.6",
     "axios": "^1.7.4",
     "framer-motion": "^11.3.29",
+    "iconify": "^1.4.0",
     "lucide-react": "^0.429.0",
     "mapbox-gl": "^3.6.0",
     "next-themes": "^0.3.0",
