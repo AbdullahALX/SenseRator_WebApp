@@ -223,7 +223,7 @@ const MapComponent = () => {
                         Close
                       </Button>
                       <Button color="primary" onPress={onClose}>
-                        View more
+                        View footage
                       </Button>
                     </ModalFooter>
                   </>
