@@ -16,10 +16,10 @@ import {
 } from '@nextui-org/react';
 import { Accordion, AccordionItem, Avatar } from '@nextui-org/react';
 
-import green from '../../assets/green.png';
-import cross from '../../assets/cross4.png';
-import light from '../../assets/Lights.png';
-import bench from '../../assets/bench.png';
+import green from '../../assets/green.jpg';
+import cross from '../../assets/gray.avif';
+import light from '../../assets/red.avif';
+import bench from '../../assets/blue.avif';
 
 import { Icon } from '@iconify/react';
 

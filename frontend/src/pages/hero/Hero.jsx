@@ -18,9 +18,12 @@ import { Link } from '@nextui-org/link';
 import ThemeSwitcher from '../../components/ThemeSwitcher';
 
 import logo from '../../assets/logo3.png';
+import logoLight from '../../assets/logo2.png';
+import useDarkMode from 'use-dark-mode'; // Assuming you're using a dark mode hook library
 
 export default function HeroWithNavBar() {
   const menuItems = ['Map', 'Docs', 'Blog'];
+  const darkMode = useDarkMode(false); // Use the dark mode hook
 
   return (
     <div className=" h-screen overflow-hidden">
@@ -30,11 +33,11 @@ export default function HeroWithNavBar() {
         </NavbarContent>
         <NavbarContent className="flex md:hidden pr-3" justify="center">
           <NavbarBrand>
-            <Image width={170} src={logo} />
+            <Image width={170} src={darkMode.value ? logoLight : logo} />
           </NavbarBrand>
         </NavbarContent>
         <NavbarBrand className="hidden md:flex">
-          <Image width={200} src={logo} />
+          <Image width={200} src={darkMode.value ? logo : logoLight} />
         </NavbarBrand>
         <NavbarContent className="hidden md:flex gap-10 ">
           <NavbarItem>

@@ -3,13 +3,11 @@ import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './index.css';
 import { NextUIProvider } from '@nextui-org/react';
-
+window.global = globalThis;
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <NextUIProvider>
-      <main className="dark text-foreground bg-background">
-        <App />
-      </main>
+      <App />
     </NextUIProvider>
   </React.StrictMode>
 );

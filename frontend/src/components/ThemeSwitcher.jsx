@@ -1,19 +1,25 @@
+import useDarkMode from 'use-dark-mode';
 import { Button } from '@nextui-org/react';
-import { useState } from 'react';
-import { useTheme } from 'next-themes';
+import { useState, useEffect } from 'react';
 import { MoonIcon, SunIcon } from 'lucide-react';
 
 export default function ThemeSwitcher() {
+  const darkMode = useDarkMode(false);
   const [svg, setSvg] = useState(<MoonIcon size={24} />);
-  const { theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    if (darkMode.value) {
+      setSvg(<SunIcon size={24} />);
+    } else {
+      setSvg(<MoonIcon size={24} />);
+    }
+  }, [darkMode.value]); // Re-run this effect when darkMode.value changes
 
   const handleClick = () => {
-    if (theme === 'light') {
-      setTheme('dark');
-      setSvg(<MoonIcon size={24} />);
+    if (darkMode.value) {
+      darkMode.disable();
     } else {
-      setTheme('light');
-      setSvg(<SunIcon size={24} />);
+      darkMode.enable();
     }
   };
 
