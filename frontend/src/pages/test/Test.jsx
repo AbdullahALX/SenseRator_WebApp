@@ -18,6 +18,8 @@ import {
   Accordion,
   AccordionItem,
   Avatar,
+  Divider,
+  Chip,
 } from '@nextui-org/react';
 
 import green from '../../assets/green.jpg';
@@ -334,6 +336,9 @@ const Test = () => {
 
   const geojsonFourthHalf = {
     type: 'Feature',
+    properties: {
+      pedestrian_flow_and_safety_index: 8.2, // Add the PFS Score here
+    },
     geometry: {
       type: 'Polygon',
       coordinates: [
@@ -676,12 +681,18 @@ const Test = () => {
         >
           <ModalContent className="text-foreground ">
             <>
-              <ModalHeader className="flex flex-col gap-1 ">
+              <ModalHeader className="flex font-light  flex-row gap-2 ">
                 {modalData?.title}
+                <Chip variant="faded" color="success">
+                  Pedestrian Flow and Safety Index is 8
+                </Chip>
               </ModalHeader>
+              {/* <Divider className="my-4" />
+              <ModalHeader className="flex font-light  flex-row gap-5  "></ModalHeader> */}
               <ModalBody>
-                <Accordion selectionMode="multiple">
+                <Accordion selectionMode="multiple  ">
                   <AccordionItem
+                    className=" font-light "
                     key="1"
                     aria-label="Trees"
                     startContent={
@@ -696,9 +707,11 @@ const Test = () => {
                     subtitle=" Score 7.5"
                     title="Trees"
                   >
-                    {defaultContent}
+                    Trees provide shade and improve air quality, contributing to
+                    the pedestrian experience
                   </AccordionItem>
                   <AccordionItem
+                    className=" font-light "
                     key="2"
                     aria-label="Benches"
                     startContent={
@@ -713,9 +726,11 @@ const Test = () => {
                     subtitle=" Score 9"
                     title="Benches"
                   >
-                    {defaultContent}
+                    Benches offer resting spots for pedestrians and enhance the
+                    comfort of public spaces.
                   </AccordionItem>
                   <AccordionItem
+                    className=" font-light "
                     key="3"
                     aria-label="Street Lights"
                     startContent={
@@ -730,9 +745,11 @@ const Test = () => {
                     subtitle=" Score 6.3"
                     title="Street Lights"
                   >
-                    {defaultContent}
+                    Street lights enhance nighttime visibility, improving safety
+                    for pedestrians
                   </AccordionItem>
                   <AccordionItem
+                    className=" font-light "
                     key="4"
                     aria-label="Crosswalks"
                     startContent={
@@ -747,7 +764,8 @@ const Test = () => {
                     subtitle=" Score 6.3"
                     title="Crosswalks"
                   >
-                    {defaultContent}
+                    Properly marked crosswalks increase pedestrian safety when
+                    crossing roads
                   </AccordionItem>
                 </Accordion>
               </ModalBody>
