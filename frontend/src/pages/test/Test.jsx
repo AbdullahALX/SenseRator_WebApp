@@ -91,6 +91,10 @@ const Test = () => {
 
   // Close modal function
   const onClose = () => {
+    window.open(
+      'https://drive.google.com/file/d/1exJk3-455S9UZcbJ121qnglaEe3mRAao/view',
+      '_blank'
+    );
     setIsOpen(false);
   };
 
