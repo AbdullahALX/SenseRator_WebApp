@@ -51,7 +51,7 @@ export default function HeroWithNavBar() {
             </Button>
           </NavbarItem>
           <NavbarItem>
-            <Button as={Link} variant="light">
+            <Button as={Link} href = "blog" variant="light">
               Blog
             </Button>
           </NavbarItem>

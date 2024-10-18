@@ -7,6 +7,7 @@ import axios from 'axios';
 import Hero from './pages/hero/Hero';
 import Map from './pages/map/Map';
 import Test from './pages/test/Test';
+import Blog from './pages/blog/Blog';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
@@ -45,6 +46,7 @@ function App() {
             <Route path="/" element={<Hero />} />
             <Route path="/map" element={<Test />} />
             <Route path="/test" element={<Map />} />
+            <Route path = "/blog" element = {<Blog />} />
           </Routes>
         </Router>
       </main>
