@@ -103,15 +103,10 @@ export default function HeroWithNavBar() {
               Semi-Real-Time Mapping and AI Analysis for Smarter, Safer, and
               More Livable Urban Spaces
             </p>
-            <Input
-              type="email"
-              label="Email"
-              description="Stay updated with the latest in AI-driven urban planning technology"
-              className="max-w-lg"
-            />
+
             <div className="items-center justify-center gap-x-3 space-y-3 sm:flex sm:space-y-0">
               <motion.div whileHover={{ scale: 1.05 }}>
-                <Button color="primary" variant="solid">
+                <Button color="primary" variant="solid" as={Link} href="map">
                   Get Started
                 </Button>
               </motion.div>
