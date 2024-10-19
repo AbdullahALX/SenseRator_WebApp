@@ -16,7 +16,7 @@ import {
 
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import { NextUIProvider } from '@nextui-org/react';
-import Doc from './pages/Dashboard/Container';
+import Container from './pages/Dashboard/Container';
 import Overview from './components/Overview';
 
 function App() {
@@ -50,7 +50,7 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<Hero />} />
-            <Route path="/doc" element={<Doc />}>
+            <Route path="/doc" element={<Container />}>
               <Route path="" element={<Navigate to="/doc/map" />} />
               <Route path="map" element={<Map />} />
               <Route path="overview" element={<Overview />} />

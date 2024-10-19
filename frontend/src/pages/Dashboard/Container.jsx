@@ -16,7 +16,7 @@ import { Link, Outlet } from 'react-router-dom';
 import SidebarDrawer from './sidebar-drawer';
 import ThemeSwitcher from '../../components/ThemeSwitcher';
 
-export default function Doc({
+export default function Container({
   children,
   header,
   title,
@@ -46,46 +46,59 @@ export default function Doc({
           >
             <ListboxItem
               key="map"
-              className="h-[44px] px-[12px] py-[10px] text-default-500"
+              className="h-[44px]  text-default-500 relative  "
+              href="/doc/map"
             >
-              <Link to="/doc/map">Map</Link>{' '}
-              {/* Add a link for the Map component */}
+              Map
+              {/* <Link
+                className="w-full  h-full absolute top-0 bottom-0 my-auto"
+                to="/doc/map "
+              >
+                Map
+              </Link> */}
             </ListboxItem>
             <ListboxItem
               key="overview"
               className="group h-[44px] px-[12px] py-[10px] text-default-500"
+              href="/doc/overview"
             >
-              <Link to="/doc/overview">SenseRator 2.0 Overview</Link>
+              SenseRator 2.0 Overview
             </ListboxItem>
+
             <ListboxItem
               key="team"
               className="h-[44px] px-[12px] py-[10px] text-default-500"
+              href="/doc/team"
             >
-              <Link to="/doc/team">SenseRator 2.0 Team</Link>
+              SenseRator 2.0 Team
             </ListboxItem>
             <ListboxItem
               key="urbanity-lab"
               className="h-[44px] px-[12px] py-[10px] text-default-500"
+              href="/doc/urbanity-lab"
             >
-              <Link to="/doc/urbanity-lab">URBANity Lab</Link>
+              URBANity Lab
             </ListboxItem>
             <ListboxItem
               key="psfi"
               className="h-[44px] px-[12px] py-[10px] text-default-500"
+              href='"/doc/psfi"'
             >
-              <Link to="/doc/psfi">Pedestrian Safety Flow Index (PSFI)</Link>
+              Pedestrian Safety Flow Index
             </ListboxItem>
             <ListboxItem
               key="psfi-calculation"
               className="h-[44px] px-[12px] py-[10px] text-default-500"
+              href="/doc/psfi-calculation"
             >
-              <Link to="/doc/psfi-calculation">PSFI Calculation</Link>
+              PSFI Calculation
             </ListboxItem>
             <ListboxItem
               key="video-compression"
               className="h-[44px] px-[12px] py-[10px] text-default-500"
+              href="/doc/video-compression"
             >
-              <Link to="/doc/video-compression">Video Compression</Link>
+              Video Compression
             </ListboxItem>
           </ListboxSection>
         </Listbox>
