@@ -89,9 +89,9 @@ export default function Container({
             <ListboxItem
               key="psfi-calculation"
               className="h-[44px] px-[12px] py-[10px] text-default-500"
-              href="/doc/psfi-calculation"
+              href="/doc/psf-calculation"
             >
-              PSFI Calculation
+              PFS Calculation
             </ListboxItem>
             <ListboxItem
               key="video-compression"

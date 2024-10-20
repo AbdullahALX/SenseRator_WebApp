@@ -74,8 +74,12 @@ export default function HeroWithNavBar() {
                 SenseRator 2.0
               </span>
             </h1>
-            <p className="max-w-2xl mx-auto text-foreground/80 text-balance">
+            {/* <p className="max-w-2xl mx-auto text-foreground/80 text-balance">
               Semi-Real-Time Mapping and AI Analysis for Smarter, Safer, and
+              More Livable Urban Spaces
+            </p> */}
+            <p className="max-w-3xl mx-auto text-foreground/80 ">
+              Using Computer Vision and Machine Learning for Smarter, Safer, and
               More Livable Urban Spaces
             </p>
 
