@@ -39,37 +39,12 @@ export default function HeroWithNavBar() {
         <NavbarBrand className="hidden md:flex">
           <Image width={200} src={darkMode.value ? logo : logoLight} />
         </NavbarBrand>
-        <NavbarContent className="hidden md:flex gap-10 ">
-          <NavbarItem>
-            <Button as={Link} href="map" variant="light">
-              Map
-            </Button>
-          </NavbarItem>
-          <NavbarItem>
-            <Button as={Link} variant="light">
-              Docs
-            </Button>
-          </NavbarItem>
-          <NavbarItem>
-            <Button as={Link} variant="light">
-              Blog
-            </Button>
-          </NavbarItem>
-        </NavbarContent>
+
         <NavbarContent justify="end">
           <NavbarItem>
             <ThemeSwitcher />
           </NavbarItem>
         </NavbarContent>
-        <NavbarMenu className="bg-black justify-center items-center gap-10">
-          {menuItems.map((item, index) => (
-            <NavbarMenuItem key={`${item}-${index}`}>
-              <Link className="w-full " href="#" size="lg">
-                {item}
-              </Link>
-            </NavbarMenuItem>
-          ))}
-        </NavbarMenu>
       </Navbar>
 
       <div className="relative justify-center items-center h-full flex overflow-y-hidden">
@@ -99,14 +74,19 @@ export default function HeroWithNavBar() {
                 SenseRator 2.0
               </span>
             </h1>
-            <p className="max-w-2xl mx-auto text-foreground/80 text-balance">
+            {/* <p className="max-w-2xl mx-auto text-foreground/80 text-balance">
               Semi-Real-Time Mapping and AI Analysis for Smarter, Safer, and
+              More Livable Urban Spaces
+            </p> */}
+            <p className="max-w-3xl mx-auto text-foreground/80 ">
+              Using Computer Vision and Machine Learning for Smarter, Safer, and
               More Livable Urban Spaces
             </p>
 
             <div className="items-center justify-center gap-x-3 space-y-3 sm:flex sm:space-y-0">
               <motion.div whileHover={{ scale: 1.05 }}>
-                <Button color="primary" variant="solid" as={Link} href="map">
+                <Button color="primary" variant="solid" as={Link} href="doc">
+                  {' '}
                   Get Started
                 </Button>
               </motion.div>
