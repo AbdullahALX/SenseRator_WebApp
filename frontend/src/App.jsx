@@ -19,6 +19,9 @@ import { NextUIProvider } from '@nextui-org/react';
 import Container from './pages/Dashboard/Container';
 import Overview from './components/Overview';
 import Team from './components/team';
+import URBANityLab from './components/urbanityLab';
+import PSDI from './components/psfi';
+import PSFI from './components/psfi';
 
 function App() {
   const url = 'http://localhost:3002';
@@ -56,7 +59,8 @@ function App() {
               <Route path="map" element={<Map />} />
               <Route path="overview" element={<Overview />} />
               <Route path="team" element = {<Team />} />
-
+              <Route path = "urbanity-lab" element = {<URBANityLab/>} />
+              <Route path = "psfi" element = {<PSFI/>} /> 
               {/* <Route path="team" element={<Team />} />
               <Route path="urbanity-lab" element={<URBANityLab />} />
               <Route path="psfi" element={<PSFI />} />

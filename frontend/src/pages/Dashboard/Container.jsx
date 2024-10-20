@@ -82,7 +82,7 @@ export default function Container({
             <ListboxItem
               key="psfi"
               className="h-[44px] px-[12px] py-[10px] text-default-500"
-              href='"/doc/psfi"'
+              href='/doc/psfi'
             >
               Pedestrian Safety Flow Index
             </ListboxItem>

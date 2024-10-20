@@ -1,15 +1,15 @@
 import React from 'react';
 
-const URBANityLab = () => {
+const PSFI = () => {
     return (
         <div className="p-4">
             <div className="mb-4 p-4 border border-foreground-300 rounded-lg bg-foreground-50">
-                <h3 className="text-xl font-bold mb-2">Who is the URBANity Lab?</h3>
+                <h3 className="text-xl font-bold mb-2">The Pedestrian Safety Flow Index</h3>
                 <p>
-                    The URBANity (URBAN Intelligence & smarT citY) Laboratory is a research team led by Dr. Shaurya Agarwal
-                    at the University of Central Florida (UCF). The lab focuses on investigating the future of smart cities and
-                    transportation systems. Past research topics cover areas such as LiDAR perception for autonomous mobility, applications of the Koopman
-                    operator in intelligent transport systems, and physics-informed deep learning.
+                The PSFI is a rating index that measures the efficiency and safety of pedestrian navigation in urban spaces. 
+                It considers elements such as sidewalks, crosswalks, tree shade, traffic lights, benches, and street signs. 
+                The index is calculated mathematically after the algorithm detects and counts these factors, providing a publicly 
+                viewable safety rating.
                 </p>
                 <hr className='my-2' />
                 <h2 className="text-l font-bold my-2">
@@ -32,4 +32,4 @@ const URBANityLab = () => {
     );
 };
 
-export default URBANityLab;
+export default PSFI;

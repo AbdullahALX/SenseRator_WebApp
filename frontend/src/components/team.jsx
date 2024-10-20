@@ -3,9 +3,8 @@ import React from 'react';
 const Team = () => {
     return (
         <div className="p-4">
-            {/* Overview Section */}
             <div className="mb-4 p-4 border border-foreground-300 rounded-lg bg-foreground-50">
-                <h3 className="text-xl font-bold mb-2">SenseRator 2.0 Overview</h3>
+                <h3 className="text-xl font-bold mb-2">SenseRator 2.0 Team</h3>
                 <p>
                     The SenseRator 2.0 project was developed by a team of seven undergraduate students during Spring 2024 - Fall 2024.
                     SenseRator 2.0 was developed in collaboration with the URBANity Lab at the University of Central Florida (UCF).
