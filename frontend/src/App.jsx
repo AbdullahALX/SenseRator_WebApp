@@ -20,7 +20,7 @@ import Container from './pages/Dashboard/Container';
 import Overview from './components/Overview';
 
 function App() {
-  const url = 'http://localhost:3002';
+  const url = 'https://senstest.onrender.com/';
   const [data, setData] = useState('');
   const darkMode = useDarkMode(false);
 
