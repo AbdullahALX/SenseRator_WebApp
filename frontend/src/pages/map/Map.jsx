@@ -480,6 +480,7 @@ const Test = () => {
                         playing
                         controls
                         width="100%"
+                        loop
                       />
                     </ModalBody>
                     <ModalFooter>
