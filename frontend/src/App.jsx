@@ -20,8 +20,9 @@ import Container from './pages/Dashboard/Container';
 import Overview from './components/Overview';
 import Team from './components/team';
 import URBANityLab from './components/urbanityLab';
-import PSDI from './components/psfi';
 import PSFI from './components/psfi';
+import PSFICalculation from './components/psfi-calculation';
+import VideoCompression from './components/videoCompression';
 
 function App() {
   const url = 'http://localhost:3002';
@@ -61,11 +62,8 @@ function App() {
               <Route path="team" element = {<Team />} />
               <Route path = "urbanity-lab" element = {<URBANityLab/>} />
               <Route path = "psfi" element = {<PSFI/>} /> 
-              {/* <Route path="team" element={<Team />} />
-              <Route path="urbanity-lab" element={<URBANityLab />} />
-              <Route path="psfi" element={<PSFI />} />
-              <Route path="psfi-calculation" element={<PSFICalculation />} />
-              <Route path="video-compression" element={<VideoCompression />} /> */}
+              <Route path = "psf-calculation" element = {<PSFICalculation/>} /> 
+              <Route path = "video-compression" element = { <VideoCompression/>} />
             </Route>
           </Routes>
         </Router>

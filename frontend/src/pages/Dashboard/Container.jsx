@@ -84,14 +84,14 @@ export default function Container({
               className="h-[44px] px-[12px] py-[10px] text-default-500"
               href='/doc/psfi'
             >
-              Pedestrian Safety Flow Index
+              Pedestrian Safety Flow Score
             </ListboxItem>
             <ListboxItem
               key="psfi-calculation"
               className="h-[44px] px-[12px] py-[10px] text-default-500"
               href="/doc/psf-calculation"
             >
-              PFS Calculation
+              PSF Calculation
             </ListboxItem>
             <ListboxItem
               key="video-compression"
