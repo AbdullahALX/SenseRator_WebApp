@@ -18,6 +18,7 @@ import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import { NextUIProvider } from '@nextui-org/react';
 import Container from './pages/Dashboard/Container';
 import Overview from './components/Overview';
+import Team from './components/team';
 
 function App() {
   const url = 'http://localhost:3002';
@@ -54,6 +55,7 @@ function App() {
               <Route path="" element={<Navigate to="/doc/map" />} />
               <Route path="map" element={<Map />} />
               <Route path="overview" element={<Overview />} />
+              <Route path="team" element = {<Team />} />
 
               {/* <Route path="team" element={<Team />} />
               <Route path="urbanity-lab" element={<URBANityLab />} />
