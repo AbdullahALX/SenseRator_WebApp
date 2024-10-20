@@ -20,6 +20,7 @@ import {
   Avatar,
   Chip,
 } from '@nextui-org/react';
+import ReactPlayer from 'react-player';
 
 import green from '../../assets/trees.webp';
 import cross from '../../assets/cross.jpeg';
@@ -48,6 +49,7 @@ const Test = () => {
   const [region3Data, setRegion3Data] = useState(null);
   const [region4Data, setRegion4Data] = useState(null);
   const [region5Data, setRegion5Data] = useState(null);
+  const [isVideoOpen, setIsVideoOpen] = useState(false); // New state for video modal
 
   const mapRef = useRef();
   const darkMode = useDarkMode();
@@ -321,134 +323,176 @@ const Test = () => {
             } text-foreground bg-background border-none`}
           >
             <ModalContent className="text-foreground ">
-              {(onClose) => (
-                <>
-                  <ModalHeader className="flex font-light  flex-row gap-2 justify-between mx-5 ">
-                    {modalData.region_name}
-                    <Chip variant="solid" color="secondary">
-                      Pedestrian Flow and Safety Index:{' '}
-                      {modalData.pedestrian_flow_and_safety_index}
-                    </Chip>
-                  </ModalHeader>
-                  <ModalBody>
-                    <Accordion selectionMode="multiple">
-                      <AccordionItem
-                        className=" font-light "
-                        key="1"
-                        aria-label="Trees"
-                        startContent={
-                          <Avatar
-                            className="bg-white"
-                            color="green"
-                            radius="lg"
-                            src={green}
-                          />
-                        }
-                        subtitle={`Score: ${modalData.tree_index} `}
-                        title="Trees "
+              <>
+                <ModalHeader className="flex font-light  flex-row gap-2 justify-between mx-5 ">
+                  {modalData.region_name}
+                  <Chip variant="solid" color="secondary">
+                    Pedestrian Flow and Safety Index:{' '}
+                    {modalData.pedestrian_flow_and_safety_index}
+                  </Chip>
+                </ModalHeader>
+                <ModalBody>
+                  <Accordion selectionMode="multiple">
+                    <AccordionItem
+                      className=" font-light "
+                      key="1"
+                      aria-label="Trees"
+                      startContent={
+                        <Avatar
+                          className="bg-white"
+                          color="green"
+                          radius="lg"
+                          src={green}
+                        />
+                      }
+                      subtitle={`Score: ${modalData.tree_index} `}
+                      title="Trees "
+                    >
+                      Trees provide shade and improve air quality.
+                    </AccordionItem>
+                    <AccordionItem
+                      className=" font-light "
+                      key="2"
+                      aria-label="Crosswalks"
+                      startContent={
+                        <Avatar
+                          className="bg-white"
+                          color="white"
+                          radius="lg"
+                          src={cross}
+                        />
+                      }
+                      subtitle={`Score: ${modalData.crosswalk_index}`}
+                      title="Crosswalks"
+                    >
+                      Crosswalks increase pedestrian safety.
+                    </AccordionItem>
+                    <AccordionItem
+                      className=" font-light "
+                      key="3"
+                      aria-label="Street Lights"
+                      startContent={
+                        <Avatar
+                          className="bg-white"
+                          color="green"
+                          radius="lg"
+                          src={light}
+                        />
+                      }
+                      subtitle={`Score: ${modalData.street_light_index}`}
+                      title="Street Lights"
+                    >
+                      Street lights enhance nighttime visibility, improving
+                      safety for pedestrians
+                    </AccordionItem>
+                    <AccordionItem
+                      className=" font-light "
+                      key="4"
+                      aria-label="Crosswalks"
+                      startContent={
+                        <Avatar
+                          className="bg-white"
+                          color="green"
+                          radius="lg"
+                          src={bench}
+                        />
+                      }
+                      subtitle={`Score: ${modalData.sidewalk_index}`}
+                      title="Sidewalks"
+                    >
+                      Sidewalks provide safe pathways for pedestrians and
+                      improve accessibility, contributing to the overall
+                      functionality and comfort of public spaces.
+                    </AccordionItem>
+                    <AccordionItem
+                      className="font-light "
+                      key="5"
+                      aria-label="Traffic Lights"
+                      startContent={
+                        <Avatar
+                          className="bg-white"
+                          color="green"
+                          radius="lg"
+                          src={traffic}
+                        />
+                      }
+                      subtitle={`Score: ${modalData.traffic_light_index}`}
+                      title=" Traffic Lights"
+                    >
+                      Traffic lights manage traffic flow and enhance safety for
+                      both vehicles and pedestrians at intersections.
+                    </AccordionItem>
+                    <AccordionItem
+                      className=" font-light "
+                      key="6"
+                      aria-label="stop signs"
+                      startContent={
+                        <Avatar
+                          className="bg-white"
+                          color="green"
+                          radius="lg"
+                          src={stop}
+                        />
+                      }
+                      subtitle={`Score: ${modalData.stop_sign_index}`}
+                      title="Stop Signs"
+                    >
+                      Stop signs control traffic at intersections, promoting
+                      safety and clear right-of-way for drivers and pedestrians
+                    </AccordionItem>
+                  </Accordion>
+                </ModalBody>
+                <ModalFooter>
+                  <Button
+                    color="danger"
+                    variant="light"
+                    onPress={() => setIsOpen(false)}
+                  >
+                    Close
+                  </Button>
+                  <Button
+                    color="secondary"
+                    onPress={() => setIsVideoOpen(true)}
+                  >
+                    View footage
+                  </Button>
+                </ModalFooter>
+              </>
+
+              {/* Video Modal */}
+              {isVideoOpen && (
+                <Modal
+                  size="4xl"
+                  isOpen={isVideoOpen}
+                  onOpenChange={setIsVideoOpen}
+                  isDismissable={true}
+                  className={`${
+                    darkMode.value ? 'dark' : 'border-none '
+                  } text-foreground bg-background border-none`}
+                >
+                  <ModalContent className="text-foreground ">
+                    <ModalHeader className="flex font-light  flex-row gap-2 justify-between mx-5 ">
+                      Footage for {modalData?.region_name}
+                    </ModalHeader>
+                    <ModalBody>
+                      <ReactPlayer
+                        url="https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/video_videoexampler_20241017_154305.mp4?alt=media&token=f8ff64fe-5200-4119-a9ca-093d07e7b3c0"
+                        playing
+                        controls
+                        width="100%"
+                      />
+                    </ModalBody>
+                    <ModalFooter>
+                      <Button
+                        color="danger"
+                        variant="light"
+                        onPress={() => setIsVideoOpen(false)}
                       >
-                        Trees provide shade and improve air quality.
-                      </AccordionItem>
-                      <AccordionItem
-                        className=" font-light "
-                        key="2"
-                        aria-label="Crosswalks"
-                        startContent={
-                          <Avatar
-                            className="bg-white"
-                            color="white"
-                            radius="lg"
-                            src={cross}
-                          />
-                        }
-                        subtitle={`Score: ${modalData.crosswalk_index}`}
-                        title="Crosswalks"
-                      >
-                        Crosswalks increase pedestrian safety.
-                      </AccordionItem>
-                      <AccordionItem
-                        className=" font-light "
-                        key="3"
-                        aria-label="Street Lights"
-                        startContent={
-                          <Avatar
-                            className="bg-white"
-                            color="green"
-                            radius="lg"
-                            src={light}
-                          />
-                        }
-                        subtitle={`Score: ${modalData.street_light_index}`}
-                        title="Street Lights"
-                      >
-                        Street lights enhance nighttime visibility, improving
-                        safety for pedestrians
-                      </AccordionItem>
-                      <AccordionItem
-                        className=" font-light "
-                        key="4"
-                        aria-label="Crosswalks"
-                        startContent={
-                          <Avatar
-                            className="bg-white"
-                            color="green"
-                            radius="lg"
-                            src={bench}
-                          />
-                        }
-                        subtitle={`Score: ${modalData.sidewalk_index}`}
-                        title="Sidewalks"
-                      >
-                        Sidewalks provide safe pathways for pedestrians and
-                        improve accessibility, contributing to the overall
-                        functionality and comfort of public spaces.
-                      </AccordionItem>
-                      <AccordionItem
-                        className="font-light "
-                        key="5"
-                        aria-label="Traffic Lights"
-                        startContent={
-                          <Avatar
-                            className="bg-white"
-                            color="green"
-                            radius="lg"
-                            src={traffic}
-                          />
-                        }
-                        subtitle={`Score: ${modalData.traffic_light_index}`}
-                        title=" Traffic Lights"
-                      >
-                        Traffic lights manage traffic flow and enhance safety
-                        for both vehicles and pedestrians at intersections.
-                      </AccordionItem>
-                      <AccordionItem
-                        className=" font-light "
-                        key="6"
-                        aria-label="stop signs"
-                        startContent={
-                          <Avatar
-                            className="bg-white"
-                            color="green"
-                            radius="lg"
-                            src={stop}
-                          />
-                        }
-                        subtitle={`Score: ${modalData.stop_sign_index}`}
-                        title="Stop Signs"
-                      >
-                        Stop signs control traffic at intersections, promoting
-                        safety and clear right-of-way for drivers and
-                        pedestrians
-                      </AccordionItem>
-                    </Accordion>
-                  </ModalBody>
-                  <ModalFooter>
-                    <Button color="danger" variant="light" onPress={onClose}>
-                      Close
-                    </Button>
-                    <Button color="secondary">View footage</Button>
-                  </ModalFooter>
-                </>
+                        Close
+                      </Button>
+                    </ModalFooter>
+                  </ModalContent>
+                </Modal>
               )}
             </ModalContent>
           </Modal>
