@@ -8,6 +8,7 @@ const Team2 = () => {
     <div className="my-10 px-4 lg:px-6 max-w-[95rem] mx-auto w-full flex flex-col gap-4 overflow-auto">
 
       <div className="p-4">
+        <div className="mb-4 p-4 border border-foreground-300 rounded-lg bg-foreground-50">
           <h3 className="text-xl font-bold mb-2">SenseRator 2.0 Team</h3>
           <p>
             The SenseRator 2.0 project was developed by a team of seven undergraduate students during Spring 2024 - Fall 2024.
