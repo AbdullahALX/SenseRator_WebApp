@@ -18,6 +18,11 @@ import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import { NextUIProvider } from '@nextui-org/react';
 import Container from './pages/Dashboard/Container';
 import Overview from './components/Overview';
+import Team2 from './pages/team/team2';
+import URBANityLab from './components/urbanityLab';
+import PSFI from './components/psfi';
+import PSFICalculation from './components/psfi-calculation';
+import VideoCompression from './components/videoCompression';
 
 function App() {
   const url = 'https://senstest.onrender.com/';
@@ -54,12 +59,11 @@ function App() {
               <Route path="" element={<Navigate to="/doc/map" />} />
               <Route path="map" element={<Map />} />
               <Route path="overview" element={<Overview />} />
-
-              {/* <Route path="team" element={<Team />} />
+              <Route path="team" element={<Team2 />} />
               <Route path="urbanity-lab" element={<URBANityLab />} />
               <Route path="psfi" element={<PSFI />} />
-              <Route path="psfi-calculation" element={<PSFICalculation />} />
-              <Route path="video-compression" element={<VideoCompression />} /> */}
+              <Route path="psf-calculation" element={<PSFICalculation />} />
+              <Route path="video-compression" element={<VideoCompression />} />
             </Route>
           </Routes>
         </Router>
