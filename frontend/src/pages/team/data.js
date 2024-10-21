@@ -12,8 +12,7 @@ export const users = [
     team: 'SenseRator 2.0',
     status: 'active',
     age: '22',
-    avatar:
-      'https://i.ibb.co/5M5tY7n/Alexandra.jpg',
+    avatar: 'https://i.ibb.co/5M5tY7n/Alexandra.jpg',
     email: 'Al799540@ucf.edu',
   },
   {
@@ -21,7 +20,7 @@ export const users = [
     name: 'Abdullah AL Hinaey',
     role: 'Full Stack Web Development',
     team: 'SenseRator 2.0',
-    avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026002d',
+    avatar: 'https://i.ibb.co/BC0rzsr/1696266382719.jpg',
     email: 'ab618186@ucf.edu',
   },
   {
@@ -45,7 +44,8 @@ export const users = [
     name: 'Ayman Arif',
     role: 'Video Compression',
     team: 'SenseRator 2.0',
-    avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026005d',
+    avatar:
+      'https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg',
     email: 'ayman.arif@example.com',
   },
   {
