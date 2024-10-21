@@ -13,7 +13,7 @@ export const users = [
     status: 'active',
     age: '22',
     avatar:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBXqRKXezHfKsAvXX2HOz0QO_5dvdAj5s0Bg&s',
+      'https://i.ibb.co/5M5tY7n/Alexandra.jpg',
     email: 'Al799540@ucf.edu',
   },
   {
@@ -29,7 +29,7 @@ export const users = [
     name: 'Kristian Michel',
     role: 'Pedestrian Flow & Safety Index (PFS)',
     team: 'SenseRator 2.0',
-    avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026003d',
+    avatar: 'https://i.ibb.co/0MmdjBK/Kristian.jpg',
     email: 'kr544295@ucf.edu',
   },
   {
@@ -37,7 +37,7 @@ export const users = [
     name: 'Nicholas Karamitos',
     role: 'Data Collection, ML, Object Detection',
     team: 'SenseRator 2.0',
-    avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026004d',
+    avatar: 'https://i.ibb.co/JkX2Wcr/Niko.jpg',
     email: 'ni904409@ucf.edu',
   },
   {
@@ -53,7 +53,7 @@ export const users = [
     name: 'Allen Lin',
     role: 'Data Collection, Hardware , Object Detection',
     team: 'SenseRator 2.0',
-    avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026006d',
+    avatar: 'https://i.ibb.co/Ycx3FdM/Allen.jpg',
     email: 'al921245@ucf.edu',
   },
 ];

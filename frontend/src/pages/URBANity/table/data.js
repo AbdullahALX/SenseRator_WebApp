@@ -12,7 +12,7 @@ export const columns = [
       team: 'URBANity',
       status: 'active',
       age: '22',
-      avatar: 'https://www.cecs.ucf.edu/sagarwal/wp-content/uploads/2020/05/dr.agarwal_cropped-263x216.jpeg',
+      avatar: 'https://i.ibb.co/Jp2wbzP/dr-agarwal-cropped-360x270.jpg',
       email: 'Shaurya.Agarwal@ucf.edu',
     },
     {
@@ -47,5 +47,6 @@ export const columns = [
       avatar: 'https://www.cecs.ucf.edu/sagarwal/wp-content/uploads/2021/10/Xinyi-263x216.jpg',
       email: '',
     }
+
   ];
   
