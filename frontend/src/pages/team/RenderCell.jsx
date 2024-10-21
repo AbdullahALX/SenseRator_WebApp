@@ -3,7 +3,7 @@ import React from 'react';
 // import { DeleteIcon } from '../icons/table/delete-icon';
 // import { EditIcon } from '../icons/table/edit-icon';
 // import { EyeIcon } from '../icons/table/eye-icon';
-import { users } from './data.js';
+import { users } from './data';
 
 const RenderCell = ({ user, columnKey }) => {
   const cellValue = user[columnKey];
