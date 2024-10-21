@@ -25,7 +25,7 @@ import PSFICalculation from './components/psfi-calculation';
 import VideoCompression from './components/videoCompression';
 
 function App() {
-  const url = 'http://localhost:3002';
+  const url = 'https://senstest.onrender.com/';
   const [data, setData] = useState('');
   const darkMode = useDarkMode(false);
 

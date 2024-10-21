@@ -35,7 +35,7 @@ export const users = [
   {
     id: 4,
     name: 'Nicholas Karamitos',
-    role: 'Data Collection, ML, Object Detection',
+    role: 'Data Collection, Hardware , Object Detection',
     team: 'SenseRator 2.0',
     avatar: 'https://i.ibb.co/JkX2Wcr/Niko.jpg',
     email: 'ni904409@ucf.edu',
@@ -51,7 +51,7 @@ export const users = [
   {
     id: 6,
     name: 'Allen Lin',
-    role: 'Data Collection, Hardware , Object Detection',
+    role: 'Data Collection, ML, Object Detection',
     team: 'SenseRator 2.0',
     avatar: 'https://i.ibb.co/Ycx3FdM/Allen.jpg',
     email: 'al921245@ucf.edu',
