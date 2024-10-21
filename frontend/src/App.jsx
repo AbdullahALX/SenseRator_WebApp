@@ -19,7 +19,7 @@ import { NextUIProvider } from '@nextui-org/react';
 import Container from './pages/Dashboard/Container';
 import Overview from './components/Overview';
 import Team2 from './pages/team/team2';
-import URBANityLab from './components/urbanityLab';
+import URBANityLab from './pages/URBANity/urbanityLab';
 import PSFI from './components/psfi';
 import PSFICalculation from './components/psfi-calculation';
 import VideoCompression from './components/videoCompression';

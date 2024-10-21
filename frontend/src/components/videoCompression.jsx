@@ -7,6 +7,7 @@ const VideoCompression = () => {
                 <h3 className="text-xl font-bold mb-2">Video Compression</h3>
                 <p>
                     in progress...
+                    nevermind, this is cancelled (for now)
                 </p> 
             </div>
         </div>
