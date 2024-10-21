@@ -12,7 +12,9 @@ const RenderCell = ({ user, columnKey }) => {
     case 'name':
       return (
         <User
-          avatarProps={cellValue}
+        avatarProps={{
+          src: user.avatar,
+        }}
           name={cellValue}
         >
           {user.email}

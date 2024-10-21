@@ -3,7 +3,7 @@ import React from 'react';
 // import { DeleteIcon } from '../icons/table/delete-icon';
 // import { EditIcon } from '../icons/table/edit-icon';
 // import { EyeIcon } from '../icons/table/eye-icon';
-import { users } from './data';
+import { users } from './data.js';
 
 const RenderCell = ({ user, columnKey }) => {
   const cellValue = user[columnKey];
@@ -13,7 +13,7 @@ const RenderCell = ({ user, columnKey }) => {
       return (
         <User
           avatarProps={{
-            src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBXqRKXezHfKsAvXX2HOz0QO_5dvdAj5s0Bg&s',
+            src: user.avatar,
           }}
           name={cellValue}
         >
