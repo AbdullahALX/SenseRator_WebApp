@@ -43,12 +43,7 @@ const Test = () => {
 
   const [isOpen, setIsOpen] = useState(false); // Modal visibility state
   const [modalData, setModalData] = useState(null); // Data to show in modal
-  const [data, setData] = useState(null);
-  const [region1Data, setRegion1Data] = useState(null);
-  const [region2Data, setRegion2Data] = useState(null);
-  const [region3Data, setRegion3Data] = useState(null);
-  const [region4Data, setRegion4Data] = useState(null);
-  const [region5Data, setRegion5Data] = useState(null);
+  const [regionData, setRegionData] = useState({}); // Consolidated state for region data
   const [isVideoOpen, setIsVideoOpen] = useState(false); // New state for video modal
 
   const mapRef = useRef();
@@ -60,12 +55,9 @@ const Test = () => {
     zoom: 15,
   });
 
-  const handleLayerClick = (layerData) => {
-    setModalData(layerData); // Set the data related to the clicked layer
-    setIsOpen(true); // Open the modal
-  };
-
   const handleMapClick = (e) => {
+    if (!mapRef.current) return; // Ensure mapRef is available
+
     const features = mapRef.current.queryRenderedFeatures(e.point, {
       layers: [
         'firstHalfLayer',
@@ -80,37 +72,64 @@ const Test = () => {
       const feature = features[0];
       const layerId = feature.layer.id;
 
-      // Match the clicked layer with the correct region data
-      if (layerId === 'firstHalfLayer') {
-        setModalData(region1Data);
-      } else if (layerId === 'secondHalfLayer') {
-        setModalData(region2Data);
-      } else if (layerId === 'thirdHalfLayer') {
-        console.log(region3Data);
-        setModalData(region3Data);
-      } else if (layerId === 'fourthHalfLayer') {
-        setModalData(region4Data);
-      } else if (layerId === 'fifthHalfLayer') {
-        setModalData(region5Data);
-      }
+      // Map layer to region name
+      const regionMapping = {
+        firstHalfLayer: 'Memory Mall',
+        secondHalfLayer: 'HEC',
+        thirdHalfLayer: 'Health Center',
+        fourthHalfLayer: 'Library',
+        fifthHalfLayer: 'Lake Claire',
+      };
+
+      const regionName = regionMapping[layerId];
+      const region = regionData[regionName] || {};
+
+      setModalData({
+        ...region,
+        videoUrl: videoUrls[regionName.replace(/\s/g, '')],
+      });
 
       setIsOpen(true); // Open the modal
     }
   };
 
   const handleMapLoad = () => {
-    if (mapRef.current) {
-      mapRef.current.on('click', handleMapClick);
-    }
+    if (!mapRef.current) return;
+
+    const layerNames = [
+      'firstHalfLayer',
+      'secondHalfLayer',
+      'thirdHalfLayer',
+      'fourthHalfLayer',
+      'fifthHalfLayer',
+    ];
+
+    // Change cursor to pointer when hovering over layers
+    layerNames.forEach((layerName) => {
+      mapRef.current.on('mouseenter', layerName, () => {
+        mapRef.current.getCanvas().style.cursor = 'pointer';
+      });
+      mapRef.current.on('mouseleave', layerName, () => {
+        mapRef.current.getCanvas().style.cursor = '';
+      });
+    });
+
+    // Bind the click event
+    mapRef.current.on('click', handleMapClick);
   };
 
-  // // Close modal function
-  // const onClose = () => {
-  //   window.open(
-  //     'https://drive.google.com/file/d/1exJk3-455S9UZcbJ121qnglaEe3mRAao/view',
-  //     '_blank'
-  //   );
-  //   setIsOpen(false);
+  // Video URLs for each region
+  const videoUrls = {
+    MemoryMall:
+      'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/region_videos%2FMemory%20Mall.MP4?alt=media&token=21291795-6fbb-496a-a501-6384ef755b49',
+    HEC: 'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/region_videos%2FHEC.MP4?alt=media&token=19b464d2-fac7-4522-a470-a181c813ee60',
+    HealthCenter:
+      'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/region_videos%2FHealth%20Center.MP4?alt=media&token=e3c90dc9-6288-4661-9491-1b564d75df3c',
+    Library:
+      'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/region_videos%2FLibrary.MP4?alt=media&token=8222bf59-9ab2-4e68-b3a2-81da31d43825',
+    LakeClaire:
+      'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/region_videos%2FLake%20Claire.MP4?alt=media&token=76151796-bad8-43e5-8327-0f6c10bc9a9a',
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -121,67 +140,38 @@ const Test = () => {
         }
         const result = await response.json();
 
+        const newRegionData = { ...regionData }; // Clone existing regionData
+
         Object.keys(result).forEach((regionId) => {
-          const regionData = result[regionId];
+          const regionDataFromAPI = result[regionId];
 
-          // Helper function to compare indices and update state
-          const updateRegionDataIfLarger = (currentData, newData, setData) => {
-            if (!currentData) {
-              // If no existing data, set the new data
-              setData(newData);
-            } else {
-              // Compare each index, and only update if the new data has larger index values
-              const updatedData = { ...currentData };
-              Object.keys(newData).forEach((key) => {
-                if (key.endsWith('_index')) {
-                  if (newData[key] > currentData[key]) {
-                    updatedData[key] = newData[key];
-                  }
-                }
-              });
-              setData(updatedData); // Update the state with the new data
-            }
-          };
+          const regionName = regionDataFromAPI.region_name;
 
-          switch (regionData.region_name) {
-            case 'Memory Mall':
-              updateRegionDataIfLarger(region1Data, regionData, setRegion1Data);
-              break;
-            case 'HEC':
-              updateRegionDataIfLarger(region2Data, regionData, setRegion2Data);
-              break;
-            case 'Health Center':
-              updateRegionDataIfLarger(region3Data, regionData, setRegion3Data);
-              break;
-            case 'Library':
-              updateRegionDataIfLarger(region4Data, regionData, setRegion4Data);
-              break;
-            case 'Lake Claire':
-              updateRegionDataIfLarger(region5Data, regionData, setRegion5Data);
-              break;
-            default:
-              break;
+          // Update the region data if pedestrian_flow_and_safety_index is higher
+          if (
+            !newRegionData[regionName] ||
+            regionDataFromAPI.pedestrian_flow_and_safety_index >
+              newRegionData[regionName].pedestrian_flow_and_safety_index
+          ) {
+            newRegionData[regionName] = regionDataFromAPI;
           }
         });
+
+        setRegionData(newRegionData); // Update state with new region data
       } catch (error) {
         console.log(error.message);
       }
     };
 
     fetchData();
-  }, []);
+  }, []); // No need to include mapRef, as fetchData doesn't depend on it
 
   const test = () => {
-    console.log('region1', region1Data);
-    console.log('region2', region2Data);
-    console.log('region3', region3Data);
-    console.log('region4', region4Data);
-    console.log('region5', region5Data);
+    console.log('Region data:', regionData);
   };
 
   return (
     <div className="justify-center items-center flex h-full w-full relative mx-auto overflow-hidden">
-      {/* <Button onPress={test}>test</Button> */}
       <Map
         {...viewState}
         onMove={(evt) => setViewState(evt.viewState)}
@@ -190,17 +180,16 @@ const Test = () => {
           darkMode.value
             ? 'mapbox://styles/mapbox/navigation-night-v1'
             : 'mapbox://styles/mapbox/navigation-day-v1'
-        } // Toggle based on dark mode
+        }
         mapboxAccessToken={WEB_MAP_API}
         ref={mapRef}
         onLoad={handleMapLoad}
       >
         <NavigationControl />
-        <FullscreenControl />
+        <FullscreenControl style={{ right: 10, top: 10 }} />
         <ScaleControl />
         <GeolocateControl />
 
-        {/* First half of the polygon */}
         <Source id="firstHalf" type="geojson" data={geojsonFirstHalf}>
           <Layer
             id="firstHalfLayer"
@@ -209,9 +198,6 @@ const Test = () => {
               'fill-color': '#FF0000', // Red color for the first half
               'fill-opacity': 0.2,
             }}
-            onClick={() =>
-              handleLayerClick({ title: 'First Layer', score: 8.5 })
-            } // Handle click event
           />
         </Source>
 
@@ -233,25 +219,23 @@ const Test = () => {
             id="thirdHalfLayer"
             type="fill"
             paint={{
-              'fill-color': '#00FF73', // Green color for the third half
+              'fill-color': '#00FF73',
               'fill-opacity': 0.2,
             }}
           />
         </Source>
 
-        {/* Fourth half of the polygon */}
         <Source id="fourthHalf" type="geojson" data={geojsonFourthHalf}>
           <Layer
             id="fourthHalfLayer"
             type="fill"
             paint={{
-              'fill-color': '#6f37f3', // Purple color for the fourth half
+              'fill-color': '#6f37f3',
               'fill-opacity': 0.2,
             }}
           />
         </Source>
 
-        {/* Fifth half of the polygon */}
         <Source id="fifthHalf" type="geojson" data={geojsonFifthHalf}>
           <Layer
             id="fifthHalfLayer"
@@ -452,7 +436,7 @@ const Test = () => {
                   </Button>
                   <Button
                     color="secondary"
-                    onPress={() => setIsVideoOpen(true)}
+                    onPress={() => setIsVideoOpen(true)} // Opens the video modal
                   >
                     View footage
                   </Button>
@@ -476,11 +460,12 @@ const Test = () => {
                     </ModalHeader>
                     <ModalBody>
                       <ReactPlayer
-                        url="https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/video_videoexampler_20241017_154305.mp4?alt=media&token=f8ff64fe-5200-4119-a9ca-093d07e7b3c0"
+                        url={modalData?.videoUrl} // Use the video URL from modalData
                         playing
                         controls
                         width="100%"
                         loop
+                        muted
                       />
                     </ModalBody>
                     <ModalFooter>
