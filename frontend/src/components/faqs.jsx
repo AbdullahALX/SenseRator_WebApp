@@ -15,11 +15,11 @@ const faqs = [
       "The URBANity--URBAN Intellifence & smarT citY--Laboratory is a team directed by Dr. Shaurya Agarwal at the University of Central Florida (UCF). The team is dedicated to researching the future of smart cities and transportation systems. Other members include Muhammad Shahbaz, Jiheng Huang, Shakib Mastavee, and Xinyi. Past Research includes LiDAR Perception for Autonomous Mobility, Applications of Koopman Operator in Intelligent Transport Systems, and Physics Informed Deep Learning.",
   },
   {
-    title: "What is the Pedestrian Safety Flow Index(PSFI)?",
-    content: "A rating index detailing the efficiency and safety of which pedestrians can navigate an urban area. This includes sidewalks, crosswalks, tree shade, traffic lights, benches, and street signs. PSFI is calculated mathematically after the algorithm detects, and counts the presence of all factors of the index, before providing a rating which can be viewed publically.",
+    title: "What is the Pedestrian Flow & Safety (PFS) Score?",
+    content: "A rating score detailing the efficiency and safety of which pedestrians can navigate an urban area. This includes sidewalks, crosswalks, tree shade, traffic lights, benches, and street signs. PFS is calculated mathematically after the algorithm detects, and counts the presence of all factors of the score, before providing a rating which can be viewed publically.",
   },
   {
-    title: "How do we calculate PSFI?",
+    title: "How do we calculate PFS?",
     content: "Yes, you can cancel and renew your subscription at any time.",
   },
   {
