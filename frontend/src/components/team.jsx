@@ -16,7 +16,7 @@ const Team = () => {
                 <p>
                     <b>Alexandra Ramlogan</b> - Project Manager, Web App Frontend Development <br />
                     <b>Abdullah A. Hinaey </b>- Full Stack Web Development  <br />
-                    <b> Kristian Michel </b>– Pedestrian Flow & Safety Index (PFS) <br />
+                    <b> Kristian Michel </b>– Pedestrian Flow & Safety (PFS) Score <br />
                     <b>Allen Lin </b> - Object Detection & Machine Learning <br />
                     <b>Nicholas Karamitos </b> – Hardware Development <br />
                     <b> Ayman Arif </b> - Video Compression <br />

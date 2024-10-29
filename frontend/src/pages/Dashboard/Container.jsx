@@ -84,7 +84,7 @@ export default function Container({
               className="h-[44px] px-[12px] py-[10px] text-default-500"
               href='/doc/psfi'
             >
-              Pedestrian Safety Flow Score
+              Pedestrian Flow & Safety Score
             </ListboxItem>
             { /*<ListboxItem
               key="psfi-calculation"

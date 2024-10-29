@@ -11,7 +11,7 @@ const PSFICalculation = () => {
                     All objects of interest are detected by our AI algorithm, and are also tracked to prevent diplicate counting. All items are
                     counted seperately, and assigned their own IDs, so that at the end, we have an accurate count of structures that were detected in the video
                     taken by SenseRator. <br />
-                    At the end, all counts are compiled and weighted together by our scoring algorithm. This score is our Pedestrian Safety Flow score, which is
+                    At the end, all counts are compiled and weighted together by our scoring algorithm. This score is our Pedestrian Flow & Safety score, which is
                     then uploaded to our web application to be displayed for public use. This is to pursue our goal of walkability awareness and our
                     scores to the general public without any restrictions or limitations.
                 </p>

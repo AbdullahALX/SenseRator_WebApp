@@ -26,7 +26,7 @@ export const users = [
   {
     id: 3,
     name: 'Kristian Michel',
-    role: 'Pedestrian Flow & Safety Index (PFS)',
+    role: 'Pedestrian Flow & Safety (PFS) Score',
     team: 'SenseRator 2.0',
     avatar: 'https://i.ibb.co/0MmdjBK/Kristian.jpg',
     email: 'kr544295@ucf.edu',
