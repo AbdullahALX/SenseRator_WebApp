@@ -46,7 +46,7 @@ export const users = [
     team: 'SenseRator 2.0',
     avatar:
       'https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg',
-    email: 'ayman.arif@example.com',
+    email: 'ay450097@ucf.edu',
   },
   {
     id: 6,

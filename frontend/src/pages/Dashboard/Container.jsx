@@ -62,7 +62,30 @@ export default function Container({
               className="group h-[44px] px-[12px] py-[10px] text-default-500"
               href="/doc/overview"
             >
-              SenseRator 2.0 Overview
+              Overview
+            </ListboxItem>
+
+            <ListboxItem
+              key="hardware"
+              className="h-[44px] px-[12px] py-[10px] text-default-500"
+              href="/doc/hardware"
+            >
+              Hardware
+            </ListboxItem>
+
+            <ListboxItem
+              key="software"
+              className="h-[44px] px-[12px] py-[10px] text-default-500"
+              href="/doc/software"
+            >
+              Software
+            </ListboxItem>
+            <ListboxItem
+              key="psfi"
+              className="h-[44px] px-[12px] py-[10px] text-default-500"
+              href="/doc/psfi"
+            >
+              Pedestrian Flow & Safety Score
             </ListboxItem>
 
             <ListboxItem
@@ -79,27 +102,6 @@ export default function Container({
             >
               URBANity Lab
             </ListboxItem>
-            <ListboxItem
-              key="psfi"
-              className="h-[44px] px-[12px] py-[10px] text-default-500"
-              href='/doc/psfi'
-            >
-              Pedestrian Flow & Safety Score
-            </ListboxItem>
-            { /*<ListboxItem
-              key="psfi-calculation"
-              className="h-[44px] px-[12px] py-[10px] text-default-500"
-              href="/doc/psf-calculation"
-            >
-              PSF Calculation
-            </ListboxItem>*/ }
-            {/*  <ListboxItem
-              key="video-compression"
-              className="h-[44px] px-[12px] py-[10px] text-default-500"
-              href="/doc/video-compression"
-            >
-              Video Compression
-            </ListboxItem> */}
           </ListboxSection>
         </Listbox>
       </ScrollShadow>
@@ -124,18 +126,21 @@ export default function Container({
           Home
         </Button>
         <Button
+          as={Link}
+          target="_blank"
+          to="https://github.com/NikoKaramitos/SenseRator2.0"
           fullWidth
           className="justify-start text-default-600"
           startContent={
             <Icon
               className="text-default-600"
-              icon="solar:info-circle-line-duotone"
+              icon="cuida:github-logo-outline"
               width={24}
             />
           }
           variant="light"
         >
-          Help & Feedback
+          Github
         </Button>
       </div>
     </div>
@@ -160,7 +165,7 @@ export default function Container({
           <ThemeSwitcher />
         </header>
         <main className="flex h-full overflow-hidden">
-          <div className="flex h-full w-full flex-col gap-4 rounded-none rounded-b-medium border-0 border-b border-l border-r border-divider overflow-hidden">
+          <div className="flex h-full w-full flex-col gap-4 rounded-none rounded-b-medium border-0 border-b border-l border-r border-divider overflow-auto">
             <Outlet /> {/* Renders the dynamic components */}
           </div>
         </main>

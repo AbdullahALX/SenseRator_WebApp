@@ -24,6 +24,9 @@ import PSFI from './components/psfi';
 import PSFICalculation from './components/psfi-calculation';
 import VideoCompression from './components/videoCompression';
 
+import Software from './components/software';
+import Hardware from './components/hardware';
+
 function App() {
   const url = 'https://senstest.onrender.com/';
   const [data, setData] = useState('');
@@ -64,6 +67,8 @@ function App() {
               <Route path="psfi" element={<PSFI />} />
               <Route path="psf-calculation" element={<PSFICalculation />} />
               <Route path="video-compression" element={<VideoCompression />} />
+              <Route path="software" element={<Software />} />
+              <Route path="hardware" element={<Hardware />} />
             </Route>
           </Routes>
         </Router>

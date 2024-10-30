@@ -48,11 +48,11 @@ const Test = () => {
 
   const mapRef = useRef();
   const darkMode = useDarkMode();
-
   const [viewState, setViewState] = useState({
     longitude: -81.200619,
-    latitude: 28.602174,
+    latitude: 28.602336,
     zoom: 15,
+    minZoom: 15,
   });
 
   const handleMapClick = (e) => {
@@ -230,7 +230,8 @@ const Test = () => {
             id="fourthHalfLayer"
             type="fill"
             paint={{
-              'fill-color': '#6f37f3',
+              'fill-color': '#ffd000',
+
               'fill-opacity': 0.2,
             }}
           />
@@ -241,7 +242,7 @@ const Test = () => {
             id="fifthHalfLayer"
             type="fill"
             paint={{
-              'fill-color': '#ffd000', // Pink color for the fifth half
+              'fill-color': '#009ffa', // Pink color for the fifth half
               'fill-opacity': 0.2,
             }}
           />
