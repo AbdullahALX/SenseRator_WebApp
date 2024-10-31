@@ -99,7 +99,7 @@ const PSFI = () => {
 
       <div className="mb-4 p-4 border border-foreground-300 rounded-lg bg-foreground-50">
         <h3 className="text-xl font-bold mb-2">Calculations</h3>
-          <Table aria-label="Example table with dynamic content">
+          <Table>
             <TableHeader columns={columns}>
               {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
             </TableHeader>

@@ -1,4 +1,5 @@
 import React from 'react';
+import HardwareModel from './hardwareModels'
 
 const hardware = () => {
   return (
@@ -34,7 +35,7 @@ const hardware = () => {
         </div>
 
         <div className="mb-4 p-4 border border-foreground-300 rounded-lg bg-foreground-50">
-          <h3 className="text-xl font-bold mb-2">Camera stabilizer</h3>
+          <h3 className="text-xl font-bold mb-2">Camera Stabilizer</h3>
           <p>
             The Camera Stabilizer is a critical component to our video collection, 
             allowing the RunCam 2 to capture smooth and steady video feed free from distortions caused by uneven and aggressive movements. 
@@ -53,9 +54,14 @@ const hardware = () => {
             The camera-stabilization system is ultimately attached to the bicycle using a NOGA Israeli Arm. 
             The NOGA arm locks via pressurization in it's joints to securely support the weight and bulk of the system out in front of the bicycle and Jetson Nano.
           </p>
+          <div className="flex justify-center">
+            <HardwareModel url= "/models/om5.stl"/>
+            <HardwareModel url= "/models/NikoGimbalV6A.stl"/>
+            <HardwareModel url="/models/NikoGimbalV1.stl"/>
+          </div>
         </div>
         <div className="mb-4 p-4 border border-foreground-300 rounded-lg bg-foreground-50">
-          <h3 className="text-xl font-bold mb-2">Vehicle mount</h3>
+          <h3 className="text-xl font-bold mb-2">Vehicle Mount</h3>
           <p>
             The Vehicle Mount is custom designed to securely attach all the components of the SenseRator 2.0 to a bicycle. 
             Crafted with 3D printing, the mount is tailored to fit the unique dimensions of the Jetson Nano and its 
