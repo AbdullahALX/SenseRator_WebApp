@@ -389,6 +389,7 @@ const Test = () => {
                       improve accessibility, contributing to the overall
                       functionality and comfort of public spaces.
                     </AccordionItem>
+                    {/* change traffic to benches */}
                     <AccordionItem
                       className="font-light "
                       key="5"
