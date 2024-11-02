@@ -60,8 +60,13 @@ The `backend` directory contains the Node.js server responsible for API endpoint
    npm run dev
    ```
 
+
    Start the frontend:
 
    ```bash
    npm run dev
-   ```
+
+    ```
+
+# Live Demo 
+https://develop--senstest.netlify.app/
