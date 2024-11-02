@@ -19,8 +19,10 @@ import {
   AccordionItem,
   Avatar,
   Chip,
+  Progress,
 } from '@nextui-org/react';
 import ReactPlayer from 'react-player';
+import { Icon } from '@iconify/react';
 
 import green from '../../assets/trees.webp';
 import cross from '../../assets/cross.jpeg';
@@ -171,7 +173,7 @@ const Test = () => {
   };
 
   return (
-    <div className="justify-center items-center flex h-full w-full relative mx-auto overflow-hidden">
+    <div className="justify-center items-center flex h-full w-full relative mx-auto overflow-hidden rounded-md">
       <Map
         {...viewState}
         onMove={(evt) => setViewState(evt.viewState)}
@@ -309,25 +311,30 @@ const Test = () => {
           >
             <ModalContent className="text-foreground ">
               <>
-                <ModalHeader className="flex font-light  flex-row gap-2 justify-between mx-5 ">
+                <ModalHeader className="flex  tracking-wider font-medium text-default-600  flex-row gap-2 justify-between mx-5 ">
                   {modalData.region_name}
-                  <Chip variant="solid" color="secondary">
-                    Pedestrian Flow and Safety Index:{' '}
-                    {modalData.pedestrian_flow_and_safety_index}
-                  </Chip>
                 </ModalHeader>
                 <ModalBody>
+                  {/* <Progress
+                    aria-label="Pedestrian Flow and Safety Index"
+                    value={modalData.pedestrian_flow_and_safety_index}
+                    className="max-w-md"
+                  /> */}
+
+                  {/* <Button variant="bordered" color="primary">
+                    Pedestrian Flow and Safety Index:{' '}
+                    {modalData.pedestrian_flow_and_safety_index}
+                  </Button> */}
                   <Accordion selectionMode="multiple">
                     <AccordionItem
                       className=" font-light "
                       key="1"
                       aria-label="Trees"
                       startContent={
-                        <Avatar
-                          className="bg-white"
-                          color="green"
-                          radius="lg"
-                          src={green}
+                        <Icon
+                          className="text-default-600"
+                          icon="mingcute:tree-line"
+                          width={40}
                         />
                       }
                       subtitle={`Score: ${modalData.tree_index} `}
@@ -340,11 +347,10 @@ const Test = () => {
                       key="2"
                       aria-label="Crosswalks"
                       startContent={
-                        <Avatar
-                          className="bg-white"
-                          color="white"
-                          radius="lg"
-                          src={cross}
+                        <Icon
+                          className="text-default-600"
+                          icon="mdi:ski-cross-country"
+                          width={40}
                         />
                       }
                       subtitle={`Score: ${modalData.crosswalk_index}`}
@@ -357,11 +363,10 @@ const Test = () => {
                       key="3"
                       aria-label="Street Lights"
                       startContent={
-                        <Avatar
-                          className="bg-white"
-                          color="green"
-                          radius="lg"
-                          src={light}
+                        <Icon
+                          className="text-default-600"
+                          icon="mdi:post-light"
+                          width={40}
                         />
                       }
                       subtitle={`Score: ${modalData.street_light_index}`}
@@ -375,11 +380,10 @@ const Test = () => {
                       key="4"
                       aria-label="Crosswalks"
                       startContent={
-                        <Avatar
-                          className="bg-white"
-                          color="green"
-                          radius="lg"
-                          src={bench}
+                        <Icon
+                          className="text-default-600"
+                          icon="material-symbols:road"
+                          width={40}
                         />
                       }
                       subtitle={`Score: ${modalData.sidewalk_index}`}
@@ -393,31 +397,31 @@ const Test = () => {
                     <AccordionItem
                       className="font-light "
                       key="5"
-                      aria-label="Traffic Lights"
+                      aria-label="Benches"
                       startContent={
-                        <Avatar
-                          className="bg-white"
-                          color="green"
-                          radius="lg"
-                          src={traffic}
+                        <Icon
+                          className="text-default-600"
+                          icon="ph:chair-bold"
+                          width={40}
                         />
                       }
                       subtitle={`Score: ${modalData.traffic_light_index}`}
-                      title=" Traffic Lights"
+                      title="Benches"
                     >
-                      Traffic lights manage traffic flow and enhance safety for
-                      both vehicles and pedestrians at intersections.
+                      Benches provide comfortable resting spots and enhance
+                      public spaces, offering pedestrians a place to relax and
+                      socialize while contributing to the overall aesthetics of
+                      the area.
                     </AccordionItem>
                     <AccordionItem
-                      className=" font-light "
+                      className="font-light"
                       key="6"
                       aria-label="stop signs"
                       startContent={
-                        <Avatar
-                          className="bg-white"
-                          color="green"
-                          radius="lg"
-                          src={stop}
+                        <Icon
+                          className="text-default-600"
+                          icon="emojione-monotone:stop-sign"
+                          width={40}
                         />
                       }
                       subtitle={`Score: ${modalData.stop_sign_index}`}
@@ -427,6 +431,21 @@ const Test = () => {
                       safety and clear right-of-way for drivers and pedestrians
                     </AccordionItem>
                   </Accordion>
+                  <Progress
+                    label="Pedestrian Flow and Safety Score"
+                    size="md"
+                    value={modalData.pedestrian_flow_and_safety_index}
+                    maxValue={100}
+                    color="warning"
+                    showValueLabel={true}
+                    classNames={{
+                      base: 'max-w-md mx-5',
+                      track: 'drop-shadow-md border border-default',
+                      indicator: 'bg-gradient-to-r from-blue-500 to-green-500',
+                      label: 'tracking-wider font-sm text-default-600',
+                      value: 'text-foreground/60',
+                    }}
+                  />
                 </ModalBody>
                 <ModalFooter>
                   <Button
@@ -437,7 +456,7 @@ const Test = () => {
                     Close
                   </Button>
                   <Button
-                    color="secondary"
+                    color="primary"
                     onPress={() => setIsVideoOpen(true)} // Opens the video modal
                   >
                     View footage

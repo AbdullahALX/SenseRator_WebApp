@@ -28,7 +28,7 @@ export default function Container({
   const content = (
     <div className="relative flex h-full w-72 flex-1 flex-col p-6">
       <div className="flex items-center gap-2 px-2">
-        <span className="text-base font-bold uppercase leading-6 text-foreground">
+        <span className="text-base font-bold uppercase leading-6 text-foreground ">
           SenseRator 2.0
         </span>
       </div>
@@ -158,14 +158,14 @@ export default function Container({
       <div className="flex w-full flex-col px-4 sm:max-w-[calc(100%_-_288px)]">
         <header
           className={cn(
-            'flex h-16 min-h-16 items-center justify-end gap-2 rounded-none rounded-t-medium border-small border-divider px-4 py-3',
+            'flex h-16 min-h-16 items-center justify-end gap-2 rounded-none rounded-t-medium order-divider px-4 py-3',
             classNames?.['header']
           )}
         >
           <ThemeSwitcher />
         </header>
         <main className="flex h-full overflow-hidden">
-          <div className="flex h-full w-full flex-col gap-4 rounded-none rounded-b-medium border-0 border-b border-l border-r border-divider overflow-auto">
+          <div className="flex h-full w-full flex-col gap-4 border-divider overflow-auto">
             <Outlet /> {/* Renders the dynamic components */}
           </div>
         </main>

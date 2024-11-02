@@ -39,21 +39,22 @@ export const users = [
     avatar: 'https://i.ibb.co/JkX2Wcr/Niko.jpg',
     email: 'ni904409@ucf.edu',
   },
+
   {
     id: 5,
-    name: 'Ayman Arif',
-    role: 'Video Compression',
-    team: 'SenseRator 2.0',
-    avatar:
-      'https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg',
-    email: 'ay450097@ucf.edu',
-  },
-  {
-    id: 6,
     name: 'Allen Lin',
     role: 'Data Collection, ML, Object Detection',
     team: 'SenseRator 2.0',
     avatar: 'https://i.ibb.co/Ycx3FdM/Allen.jpg',
     email: 'al921245@ucf.edu',
+  },
+  {
+    id: 6,
+    name: 'Ayman Arif',
+    role: 'Video Compression',
+    team: 'SenseRator 2.0',
+    avatar:
+      'https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg',
+    email: 'ay450097@ucf.edu',
   },
 ];
