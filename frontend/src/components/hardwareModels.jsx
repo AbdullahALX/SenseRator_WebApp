@@ -24,10 +24,11 @@ export default function HardwareModel({ url }) {
         <StlViewer
             style={style}
             url={url}
-            orbitControls // Enables user-driven rotation with mouse
-            shadows
+            orbitControls
+            initialPosition={{ x:0, y: 8, z: 100}}
             modelProps={{
                 rotationZ: rotation.rotationZ,
+                scale: 1.75
             }}
         />
     );

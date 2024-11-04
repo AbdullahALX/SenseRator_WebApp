@@ -1,5 +1,12 @@
 import React from 'react';
 import HardwareModel from './hardwareModels'
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  Divider,
+} from '@nextui-org/react';
+import { Icon } from '@iconify/react';
 
 const hardware = () => {
   return (
@@ -54,26 +61,92 @@ const hardware = () => {
             The camera-stabilization system is ultimately attached to the bicycle using a NOGA Israeli Arm. 
             The NOGA arm locks via pressurization in it's joints to securely support the weight and bulk of the system out in front of the bicycle and Jetson Nano.
           </p>
-          <div className="flex justify-center">
-            <HardwareModel url= "/models/om5.stl"/>
-            <HardwareModel url= "/models/NikoGimbalV6A.stl"/>
-            <HardwareModel url="/models/NikoGimbalV1.stl"/>
-          </div>
         </div>
-        <div className="mb-4 p-4 border border-foreground-300 rounded-lg bg-foreground-50">
-          <h3 className="text-xl font-bold mb-2">Vehicle Mount</h3>
-          <p>
-            The Vehicle Mount is custom designed to securely attach all the components of the SenseRator 2.0 to a bicycle. 
-            Crafted with 3D printing, the mount is tailored to fit the unique dimensions of the Jetson Nano and its 
-            accompanying LCD 5” touch screen and to lock them to the handlebars of the bicycle.
-            <br/><br/>
-            Constructed from lightweight plastic and small hardware, the vehicle mount ensures that the equipment is safely secured to the bicycle and 
-            does not impede on the ability of the cyclist to navigate through the environment. 
-            The mount facilitates quick assembly and disassembly, allowing for efficient deployment and maintenance of the system.
-            <br/><br/>
-            Along with the touch screen monitor, this allows our team to view our work in real time and monitor feedback as well as interacting with our system. 
-            Through this system, we can make on-the-fly adjustments to parameters in our code, processing, and model.
-          </p>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3 mb-4">
+          <Card className="max-w-full">
+            <CardHeader className="flex gap-3">
+              <Icon
+                className="text-default-600"
+                icon="mage:goals-fill"
+                width={30}
+              />
+              <div className="flex flex-col">
+                <p className="text-md">DJI Gimbal Camera Mount</p>
+              </div>
+            </CardHeader>
+            <Divider />
+            <CardBody>
+              <HardwareModel url= "/models/om5.stl"/>
+            </CardBody>
+          </Card>
+          
+          <Card className="max-w-full">
+            <CardHeader className="flex gap-3">
+              <Icon
+                className="text-default-600"
+                icon="mage:goals-fill"
+                width={30}
+              />
+              <div className="flex flex-col">
+                <p className="text-md">Z-Axis Stabilizer</p>
+              </div>
+            </CardHeader>
+            <Divider />
+            <CardBody>
+              <HardwareModel url= "/models/NikoGimbalV6A.stl"/>
+            </CardBody>
+          </Card>
+
+          <Card className="max-w-full">
+            <CardHeader className="flex gap-3">
+              <Icon
+                className="text-default-600"
+                icon="mage:goals-fill"
+                width={30}
+              />
+              <div className="flex flex-col">
+                <p className="text-md">Camera Stabilizer Version 1</p>
+              </div>
+            </CardHeader>
+            <Divider />
+            <CardBody>
+              <HardwareModel url="/models/NikoGimbalV1.stl"/>
+            </CardBody>
+          </Card>
+        </div>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <div className="mb-4 p-4 border border-foreground-300 rounded-lg bg-foreground-50 h-full">
+            <h3 className="text-xl font-bold mb-2">Vehicle Mount</h3>
+            <p>
+              The Vehicle Mount is custom designed to securely attach all the components of the SenseRator 2.0 to a bicycle. 
+              Crafted with 3D printing, the mount is tailored to fit the unique dimensions of the Jetson Nano and its 
+              accompanying LCD 5” touch screen and to lock them to the handlebars of the bicycle.
+              <br/><br/>
+              Constructed from lightweight plastic and small hardware, the vehicle mount ensures that the equipment is safely secured to the bicycle and 
+              does not impede on the ability of the cyclist to navigate through the environment. 
+              The mount facilitates quick assembly and disassembly, allowing for efficient deployment and maintenance of the system.
+              <br/><br/>
+              Along with the touch screen monitor, this allows our team to view our work in real time and monitor feedback as well as interacting with our system. 
+              Through this system, we can make on-the-fly adjustments to parameters in our code, processing, and model.
+            </p>
+          </div>
+
+          <Card>
+            <CardHeader className="flex gap-1">
+              <Icon
+                className="text-default-600"
+                icon="mage:goals-fill"
+                width={30}
+              />
+              <div className="flex flex-col">
+                <p className="text-md">Jetson Vehicle Mount and Monitor Arm</p>
+              </div>
+            </CardHeader>
+            <Divider />
+              <CardBody className="flex justify-center items-center">
+                <HardwareModel url="/models/Jetson-001.stl"/>
+              </CardBody>
+          </Card>
         </div>
       </div>
     </div>
