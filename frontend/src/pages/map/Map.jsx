@@ -39,6 +39,7 @@ import {
   geojsonFifthHalf,
 } from './geojsonData';
 
+import getRatingDescription from './ratingDescriptions';
 const Test = () => {
   const WEB_MAP_API = import.meta.env.VITE_WEB_GEO_API_KEY;
   const [isOpen, setIsOpen] = useState(false);
@@ -193,6 +194,9 @@ const Test = () => {
 
       setIsOpen(true);
     }
+  };
+  const test = () => {
+    console.log(regionData);
   };
 
   const handleSelectionChange = (key) => {
@@ -356,10 +360,16 @@ const Test = () => {
                           width={40}
                         />
                       }
-                      subtitle={`Score: ${modalData.tree_index} `}
+                      subtitle={`Rating: ${
+                        getRatingDescription(modalData.tree_index, 'tree_index')
+                          .rating
+                      } `}
                       title="Trees "
                     >
-                      Trees provide shade and improve air quality.
+                      {` ${
+                        getRatingDescription(modalData.tree_index, 'tree_index')
+                          .description
+                      } `}
                     </AccordionItem>
                     <AccordionItem
                       className=" font-light "
@@ -372,10 +382,20 @@ const Test = () => {
                           width={40}
                         />
                       }
-                      subtitle={`Score: ${modalData.crosswalk_index}`}
-                      title="Crosswalks"
+                      subtitle={`Rating: ${
+                        getRatingDescription(
+                          modalData.crosswalk_index,
+                          'crosswalk_index'
+                        ).rating
+                      } `}
+                      title="Crosswalks "
                     >
-                      Crosswalks increase pedestrian safety.
+                      {` ${
+                        getRatingDescription(
+                          modalData.crosswalk_index,
+                          'crosswalk_index'
+                        ).description
+                      } `}
                     </AccordionItem>
                     <AccordionItem
                       className=" font-light "
@@ -388,11 +408,20 @@ const Test = () => {
                           width={40}
                         />
                       }
-                      subtitle={`Score: ${modalData.street_light_index}`}
-                      title="Street Lights"
+                      subtitle={`Rating: ${
+                        getRatingDescription(
+                          modalData.street_light_index,
+                          'street_light_index'
+                        ).rating
+                      } `}
+                      title="Street Lights "
                     >
-                      Street lights enhance nighttime visibility, improving
-                      safety for pedestrians
+                      {` ${
+                        getRatingDescription(
+                          modalData.street_light_index,
+                          'street_light_index'
+                        ).description
+                      } `}
                     </AccordionItem>
                     <AccordionItem
                       className=" font-light "
@@ -405,12 +434,20 @@ const Test = () => {
                           width={40}
                         />
                       }
-                      subtitle={`Score: ${modalData.sidewalk_index}`}
+                      subtitle={`Rating: ${
+                        getRatingDescription(
+                          modalData.sidewalk_index,
+                          'sidewalk_index'
+                        ).rating
+                      } `}
                       title="Sidewalks"
                     >
-                      Sidewalks provide safe pathways for pedestrians and
-                      improve accessibility, contributing to the overall
-                      functionality and comfort of public spaces.
+                      {` ${
+                        getRatingDescription(
+                          modalData.sidewalk_index,
+                          'sidewalk_index'
+                        ).description
+                      } `}
                     </AccordionItem>
 
                     <AccordionItem
@@ -424,13 +461,20 @@ const Test = () => {
                           width={40}
                         />
                       }
-                      subtitle={`Score: ${modalData.bench_index}`}
+                      subtitle={`Rating: ${
+                        getRatingDescription(
+                          modalData.bench_index,
+                          'bench_index'
+                        ).rating
+                      } `}
                       title="Benches"
                     >
-                      Benches provide comfortable resting spots and enhance
-                      public spaces, offering pedestrians a place to relax and
-                      socialize while contributing to the overall aesthetics of
-                      the area.
+                      {` ${
+                        getRatingDescription(
+                          modalData.bench_index,
+                          'bench_index'
+                        ).description
+                      } `}
                     </AccordionItem>
                     <AccordionItem
                       className="font-light"
@@ -443,11 +487,20 @@ const Test = () => {
                           width={40}
                         />
                       }
-                      subtitle={`Score: ${modalData.stop_sign_index}`}
+                      subtitle={`Rating: ${
+                        getRatingDescription(
+                          modalData.stop_sign_index,
+                          'stop_sign_index'
+                        ).rating
+                      } `}
                       title="Stop Signs"
                     >
-                      Stop signs control traffic at intersections, promoting
-                      safety and clear right-of-way for drivers and pedestrians
+                      {` ${
+                        getRatingDescription(
+                          modalData.stop_sign_index,
+                          'stop_sign_index'
+                        ).description
+                      } `}
                     </AccordionItem>
                   </Accordion>
                   <Progress
