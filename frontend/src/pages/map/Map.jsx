@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import Map, {
   NavigationControl,
   FullscreenControl,
@@ -41,12 +41,11 @@ import {
 
 const Test = () => {
   const WEB_MAP_API = import.meta.env.VITE_WEB_GEO_API_KEY;
-
-  const [isOpen, setIsOpen] = useState(false); // Modal visibility state
-  const [modalData, setModalData] = useState(null); // Data to show in modal
-  const [regionData, setRegionData] = useState({}); // Consolidated state for region data
-  const [isVideoOpen, setIsVideoOpen] = useState(false); // New state for video modal
-  const [isCameraOpen, setIsCameraOpen] = useState(false); // New state for camera point view modal
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalData, setModalData] = useState(null);
+  const [regionData, setRegionData] = useState({});
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [isCameraOpen, setIsCameraOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(new Set(['footage']));
 
   const descriptionsMap = {
@@ -68,44 +67,70 @@ const Test = () => {
     minZoom: 15,
   });
 
-  const handleMapClick = (e) => {
-    if (!mapRef.current) return; // Ensure mapRef is available
+  // Video URLs for each region
+  const videoUrls = useMemo(
+    () => ({
+      MemoryMall:
+        'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/region_videos%2FMemory%20Mall.MP4?alt=media&token=21291795-6fbb-496a-a501-6384ef755b49',
+      HEC: 'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/region_videos%2FHEC%20%5BCOMPRESSED%5D.mp4?alt=media&token=10217fbd-d74a-49e7-9ca7-11e4708c6e6e',
+      HealthCenter:
+        'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/region_videos%2FHealth%20Center%20%5BCOMPRESSED%5D.mp4?alt=media&token=24ce83e5-7dc8-41d7-97ff-9dfa4ddc2930',
+      Library:
+        'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/region_videos%2FLibrary%20%5BCOMPRESSED%5D.mp4?alt=media&token=5a3745b6-9ff7-44c2-a07a-1eb58c2bd20d',
+      LakeClaire:
+        'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/region_videos%2FLake%20Claire%20%5BCOMPRESSED%5D.mp4?alt=media&token=6c592cc5-2ced-48a3-ba91-bd5756825779',
+    }),
+    []
+  );
 
-    const features = mapRef.current.queryRenderedFeatures(e.point, {
-      layers: [
-        'firstHalfLayer',
-        'secondHalfLayer',
-        'thirdHalfLayer',
-        'fourthHalfLayer',
-        'fifthHalfLayer',
-      ],
-    });
+  const cameraUrls = useMemo(
+    () => ({
+      MemoryMall:
+        'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/object_detection%2FMemory%20Mall%20%5BFIXED%5D.mp4?alt=media&token=6c73d19c-fb1c-4020-b3fe-16ee267a708e',
+      HEC: 'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/object_detection%2FHEC%20%5BFIXED%5D.mp4?alt=media&token=237e49b5-748b-4225-ba04-77b769e70354',
+      HealthCenter:
+        'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/object_detection%2FHealth%20Center%20%5BFIXED%5D.mp4?alt=media&token=b4f86d55-f050-448f-9184-1d3eeceadbe6',
+      Library:
+        'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/object_detection%2FLibrary%20%5BFIXED%5D.mp4?alt=media&token=5ca954e0-e33c-47cf-b849-65408dcdf2fa',
+      LakeClaire:
+        'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/object_detection%2FLake%20Claire%20%5BFIXED%5D.mp4?alt=media&token=c7956cb2-d1ee-4c9b-a56b-b6495564ffcb',
+    }),
+    []
+  );
 
-    if (features.length) {
-      const feature = features[0];
-      const layerId = feature.layer.id;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data: result } = await axios.get(
+          'https://senstest.onrender.com/api'
+        );
+        if (!result || typeof result !== 'object')
+          throw new Error('Invalid data format');
 
-      // Map layer to region name
-      const regionMapping = {
-        firstHalfLayer: 'Memory Mall',
-        secondHalfLayer: 'HEC',
-        thirdHalfLayer: 'Health Center',
-        fourthHalfLayer: 'Library',
-        fifthHalfLayer: 'Lake Claire',
-      };
+        const updatedRegionData = Object.keys(result).reduce(
+          (acc, regionId) => {
+            const regionInfo = result[regionId];
+            if (regionInfo?.region_name) {
+              const existing = acc[regionInfo.region_name] || {};
+              acc[regionInfo.region_name] =
+                regionInfo.pedestrian_flow_and_safety_index >
+                (existing.pedestrian_flow_and_safety_index || 0)
+                  ? regionInfo
+                  : existing;
+            }
+            return acc;
+          },
+          {}
+        );
 
-      const regionName = regionMapping[layerId];
-      const region = regionData[regionName] || {};
+        setRegionData(updatedRegionData);
+      } catch (error) {
+        console.error('Error:', error.message);
+      }
+    };
 
-      setModalData({
-        ...region,
-        videoUrl: videoUrls[regionName.replace(/\s/g, '')],
-        cameraUrl: cameraUrls[regionName.replace(/\s/g, '')],
-      });
-
-      setIsOpen(true); // Open the modal
-    }
-  };
+    fetchData();
+  }, []);
 
   const handleMapLoad = () => {
     if (!mapRef.current) return;
@@ -132,81 +157,48 @@ const Test = () => {
     mapRef.current.on('click', handleMapClick);
   };
 
-  // Video URLs for each region
-  const videoUrls = {
-    MemoryMall:
-      'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/region_videos%2FMemory%20Mall.MP4?alt=media&token=21291795-6fbb-496a-a501-6384ef755b49',
-    HEC: 'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/region_videos%2FHEC%20%5BCOMPRESSED%5D.mp4?alt=media&token=10217fbd-d74a-49e7-9ca7-11e4708c6e6e',
-    HealthCenter:
-      'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/region_videos%2FHealth%20Center%20%5BCOMPRESSED%5D.mp4?alt=media&token=24ce83e5-7dc8-41d7-97ff-9dfa4ddc2930',
-    Library:
-      'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/region_videos%2FLibrary%20%5BCOMPRESSED%5D.mp4?alt=media&token=5a3745b6-9ff7-44c2-a07a-1eb58c2bd20d',
-    LakeClaire:
-      'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/region_videos%2FLake%20Claire%20%5BCOMPRESSED%5D.mp4?alt=media&token=6c592cc5-2ced-48a3-ba91-bd5756825779',
-  };
-
-  const cameraUrls = {
-    MemoryMall:
-      'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/object_detection%2FMemory%20Mall%20%5BFIXED%5D.mp4?alt=media&token=6c73d19c-fb1c-4020-b3fe-16ee267a708e',
-    HEC: 'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/object_detection%2FHEC%20%5BFIXED%5D.mp4?alt=media&token=237e49b5-748b-4225-ba04-77b769e70354',
-    HealthCenter:
-      'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/object_detection%2FHealth%20Center%20%5BFIXED%5D.mp4?alt=media&token=b4f86d55-f050-448f-9184-1d3eeceadbe6',
-    Library:
-      'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/object_detection%2FLibrary%20%5BFIXED%5D.mp4?alt=media&token=5ca954e0-e33c-47cf-b849-65408dcdf2fa',
-    LakeClaire:
-      'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/object_detection%2FLake%20Claire%20%5BFIXED%5D.mp4?alt=media&token=c7956cb2-d1ee-4c9b-a56b-b6495564ffcb',
-  };
-
   const selectedOptionValue = Array.from(selectedOption)[0];
 
-  // Handle selection change
-  const handleSelectionChange = (key) => {
-    setSelectedOption(new Set([key]));
-    if (key === 'footage') {
-      setIsVideoOpen(true);
-    } else if (key === 'camera') {
-      setIsCameraOpen(true);
+  const handleMapClick = (e) => {
+    if (!mapRef.current) return;
+
+    const features = mapRef.current.queryRenderedFeatures(e.point, {
+      layers: [
+        'firstHalfLayer',
+        'secondHalfLayer',
+        'thirdHalfLayer',
+        'fourthHalfLayer',
+        'fifthHalfLayer',
+      ],
+    });
+
+    if (features.length) {
+      const layerId = features[0].layer.id;
+      const regionMapping = {
+        firstHalfLayer: 'Memory Mall',
+        secondHalfLayer: 'HEC',
+        thirdHalfLayer: 'Health Center',
+        fourthHalfLayer: 'Library',
+        fifthHalfLayer: 'Lake Claire',
+      };
+
+      const regionName = regionMapping[layerId];
+      const region = regionData[regionName] || {};
+
+      setModalData({
+        ...region,
+        videoUrl: videoUrls[regionName.replace(/\s/g, '')],
+        cameraUrl: cameraUrls[regionName.replace(/\s/g, '')],
+      });
+
+      setIsOpen(true);
     }
   };
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('https://senstest.onrender.com/api');
-        const result = response.data;
 
-        if (!result || typeof result !== 'object') {
-          throw new Error('Invalid data format');
-        }
-
-        const newRegionData = { ...regionData };
-
-        Object.keys(result).forEach((regionId) => {
-          const regionDataFromAPI = result[regionId];
-          if (regionDataFromAPI && regionDataFromAPI.region_name) {
-            const regionName = regionDataFromAPI.region_name;
-
-            // Update the region data if pedestrian_flow_and_safety_index is higher
-            if (
-              !newRegionData[regionName] ||
-              regionDataFromAPI.pedestrian_flow_and_safety_index >
-                newRegionData[regionName]?.pedestrian_flow_and_safety_index
-            ) {
-              newRegionData[regionName] = regionDataFromAPI;
-            }
-          }
-        });
-
-        setRegionData(newRegionData);
-      } catch (error) {
-        console.log('Error:', error.message);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  const test = () => {
-    console.log('Region data:', regionData);
+  const handleSelectionChange = (key) => {
+    setSelectedOption(new Set([key]));
+    if (key === 'footage') setIsVideoOpen(true);
+    else if (key === 'camera') setIsCameraOpen(true);
   };
 
   return (

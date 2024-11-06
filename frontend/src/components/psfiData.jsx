@@ -32,13 +32,13 @@ const features = [
   {
     title: 'Benches',
     content:
-      'Benches are considered to evaluate resting opportunities, supporting accessibility and comfort for longer walks. Weight: 10%',
+      'Benches are considered to evaluate resting opportunities, supporting accessibility and comfort for longer walks. Weight: 15%',
     icon: 'ph:chair-bold',
   },
   {
     title: 'Stop Signs',
     content:
-      'Stop signs are included to gauge intersection safety, as they help manage vehicle flow and make pedestrian crossings safer. Weight: 15%',
+      'Stop signs are included to gauge intersection safety, as they help manage vehicle flow and make pedestrian crossings safer. Weight: 10%',
     icon: 'emojione-monotone:stop-sign',
   },
 ];

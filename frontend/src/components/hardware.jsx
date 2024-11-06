@@ -39,6 +39,7 @@ export default function Hardware() {
                 with a powerful CPU and GPU necessary to run advanced object
                 detection and tracking algorithms efficiently on the move.
                 <br />
+                <br />
                 In the context of the SenseRator 2.0, the Jetson Nano processes
                 live video feeds from the RunCam2, identifying and quantifying
                 key urban features: sidewalks, crosswalks, benches, street
@@ -88,6 +89,7 @@ export default function Hardware() {
                 necessary clarity and frame rate needed for accurate object
                 detection and tracking.
                 <br />
+                <br />
                 The wide-angle lens captures a broad field of view, ensuring
                 that all relevant features within the environment being analyzed
                 are included in the video feed. The camera’s compact size allows
@@ -126,6 +128,7 @@ export default function Hardware() {
                 we encountered bumpy and rough terrains that greatly affected
                 the object detection model to efficiently label objects.
                 <br />
+                <br />
                 The SenseRator 2.0’s mounting system combines a DJI OM5 gimbal
                 for X/Y-axis stabilization with our custom-designed Z-axis
                 spring gimbal to address vertical movements when the bike
@@ -162,6 +165,7 @@ export default function Hardware() {
                 printing, the mount is tailored to fit the unique dimensions of
                 the Jetson Nano and its accompanying LCD 5” touch screen and to
                 lock them to the handlebars of the bicycle.
+                <br />
                 <br />
                 Constructed from lightweight plastic and small hardware, the
                 vehicle mount ensures that the equipment is safely secured to
