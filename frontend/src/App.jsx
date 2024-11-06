@@ -3,10 +3,8 @@ import './App.css';
 import { Button } from '@nextui-org/react';
 import useDarkMode from 'use-dark-mode';
 
-import axios from 'axios';
 import Hero from './pages/hero/Hero';
 import Map from './pages/map/Map';
-import Blog from './pages/blog/Blog';
 import {
   BrowserRouter as Router,
   Routes,
@@ -14,7 +12,6 @@ import {
   Navigate,
 } from 'react-router-dom';
 
-import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import { NextUIProvider } from '@nextui-org/react';
 import Container from './pages/Dashboard/Container';
 import Overview from './components/Overview';
@@ -25,28 +22,11 @@ import PSFICalculation from './components/psfi-calculation';
 import VideoCompression from './components/videoCompression';
 
 import Software from './components/software';
-import Hardware from './components/hardware';
+import HardwareNew from './components/hardware';
 
 function App() {
   const url = 'https://senstest.onrender.com/';
-  const [data, setData] = useState('');
   const darkMode = useDarkMode(false);
-
-  // useEffect(() => {
-  //   connectServer();
-  // }, []);
-
-  // const connectServer = async () => {
-  //   await axios
-  //     .get(url + '/api')
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       setData(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err.response.data);
-  //     });
-  // };
 
   return (
     <NextUIProvider>
@@ -68,7 +48,7 @@ function App() {
               <Route path="psf-calculation" element={<PSFICalculation />} />
               <Route path="video-compression" element={<VideoCompression />} />
               <Route path="software" element={<Software />} />
-              <Route path="hardware" element={<Hardware />} />
+              <Route path="hardware" element={<HardwareNew />} />
             </Route>
           </Routes>
         </Router>

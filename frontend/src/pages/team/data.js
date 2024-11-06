@@ -53,8 +53,7 @@ export const users = [
     name: 'Ayman Arif',
     role: 'Video Compression',
     team: 'SenseRator 2.0',
-    avatar:
-      'https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg',
+    avatar: 'https://i.ibb.co/w4KKKNc/ayman.jpg[/img][/url]',
     email: 'ay450097@ucf.edu',
   },
 ];

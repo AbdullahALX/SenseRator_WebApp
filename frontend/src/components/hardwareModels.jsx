@@ -1,35 +1,48 @@
 import React, { useState, useEffect } from 'react';
-import { StlViewer } from "react-stl-viewer";
+import { StlViewer } from 'react-stl-viewer';
 
 export default function HardwareModel({ url }) {
-    const style = {
-        width: "30vh",
-        height: "30vh"
-    };
+  const containerStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#e0f7fa3', // Light blue background color
+    borderRadius: '8px',
+    margin: '20px',
+    width: '400px',
+    height: '400px',
+  };
 
-    const [rotation, setRotation] = useState({ rotationZ: 0 });
+  const viewerStyle = {
+    width: '100%',
+    height: '100%',
+  };
 
-    useEffect(() => {
-        // Update rotation for continuous spin
-        const interval = setInterval(() => {
-            setRotation((prevRotation) => ({
-                rotationZ: prevRotation.rotationZ + .04
-            }));
-        }, 50);
+  const [rotation, setRotation] = useState({ rotationZ: 0 });
 
-        return () => clearInterval(interval);
-    }, []);
+  useEffect(() => {
+    // Update rotation for continuous spin
+    const interval = setInterval(() => {
+      setRotation((prevRotation) => ({
+        rotationZ: prevRotation.rotationZ + 0.03,
+      }));
+    }, 40);
 
-    return (
-        <StlViewer
-            style={style}
-            url={url}
-            orbitControls
-            initialPosition={{ x:0, y: 8, z: 100}}
-            modelProps={{
-                rotationZ: rotation.rotationZ,
-                scale: 1.75
-            }}
-        />
-    );
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div style={containerStyle}>
+      <StlViewer
+        style={viewerStyle}
+        url={url}
+        orbitControls
+        initialPosition={{ x: 180, y: 8 }}
+        modelProps={{
+          rotationZ: rotation.rotationZ,
+          scale: 1.75,
+        }}
+      />
+    </div>
+  );
 }

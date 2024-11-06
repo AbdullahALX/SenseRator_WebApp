@@ -17,19 +17,18 @@ import {
   Button,
   Accordion,
   AccordionItem,
-  Avatar,
-  Chip,
   Progress,
+  ButtonGroup,
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
 } from '@nextui-org/react';
+import { ChevronDownIcon } from './ChevronDownIcon';
+
 import ReactPlayer from 'react-player';
 import { Icon } from '@iconify/react';
-
-import green from '../../assets/trees.webp';
-import cross from '../../assets/cross.jpeg';
-import light from '../../assets/lights.jpg';
-import bench from '../../assets/side.png';
-import traffic from '../../assets/scale.webp';
-import stop from '../../assets/stopSign-Photoroom.png';
+import axios from 'axios';
 
 import useDarkMode from 'use-dark-mode';
 import {
@@ -47,6 +46,18 @@ const Test = () => {
   const [modalData, setModalData] = useState(null); // Data to show in modal
   const [regionData, setRegionData] = useState({}); // Consolidated state for region data
   const [isVideoOpen, setIsVideoOpen] = useState(false); // New state for video modal
+  const [isCameraOpen, setIsCameraOpen] = useState(false); // New state for camera point view modal
+  const [selectedOption, setSelectedOption] = useState(new Set(['footage']));
+
+  const descriptionsMap = {
+    footage: 'Watch region footage',
+    camera: 'view data analysis',
+  };
+
+  const labelsMap = {
+    footage: 'View Footage',
+    camera: 'Object Detection',
+  };
 
   const mapRef = useRef();
   const darkMode = useDarkMode();
@@ -89,6 +100,7 @@ const Test = () => {
       setModalData({
         ...region,
         videoUrl: videoUrls[regionName.replace(/\s/g, '')],
+        cameraUrl: cameraUrls[regionName.replace(/\s/g, '')],
       });
 
       setIsOpen(true); // Open the modal
@@ -124,49 +136,74 @@ const Test = () => {
   const videoUrls = {
     MemoryMall:
       'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/region_videos%2FMemory%20Mall.MP4?alt=media&token=21291795-6fbb-496a-a501-6384ef755b49',
-    HEC: 'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/region_videos%2FHEC.MP4?alt=media&token=19b464d2-fac7-4522-a470-a181c813ee60',
+    HEC: 'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/region_videos%2FHEC%20%5BCOMPRESSED%5D.mp4?alt=media&token=10217fbd-d74a-49e7-9ca7-11e4708c6e6e',
     HealthCenter:
-      'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/region_videos%2FHealth%20Center.MP4?alt=media&token=e3c90dc9-6288-4661-9491-1b564d75df3c',
+      'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/region_videos%2FHealth%20Center%20%5BCOMPRESSED%5D.mp4?alt=media&token=24ce83e5-7dc8-41d7-97ff-9dfa4ddc2930',
     Library:
-      'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/region_videos%2FLibrary.MP4?alt=media&token=8222bf59-9ab2-4e68-b3a2-81da31d43825',
+      'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/region_videos%2FLibrary%20%5BCOMPRESSED%5D.mp4?alt=media&token=5a3745b6-9ff7-44c2-a07a-1eb58c2bd20d',
     LakeClaire:
-      'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/region_videos%2FLake%20Claire.MP4?alt=media&token=76151796-bad8-43e5-8327-0f6c10bc9a9a',
+      'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/region_videos%2FLake%20Claire%20%5BCOMPRESSED%5D.mp4?alt=media&token=6c592cc5-2ced-48a3-ba91-bd5756825779',
   };
 
+  const cameraUrls = {
+    MemoryMall:
+      'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/object_detection%2FMemory%20Mall%20%5BFIXED%5D.mp4?alt=media&token=6c73d19c-fb1c-4020-b3fe-16ee267a708e',
+    HEC: 'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/object_detection%2FHEC%20%5BFIXED%5D.mp4?alt=media&token=237e49b5-748b-4225-ba04-77b769e70354',
+    HealthCenter:
+      'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/object_detection%2FHealth%20Center%20%5BFIXED%5D.mp4?alt=media&token=b4f86d55-f050-448f-9184-1d3eeceadbe6',
+    Library:
+      'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/object_detection%2FLibrary%20%5BFIXED%5D.mp4?alt=media&token=5ca954e0-e33c-47cf-b849-65408dcdf2fa',
+    LakeClaire:
+      'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/object_detection%2FLake%20Claire%20%5BFIXED%5D.mp4?alt=media&token=c7956cb2-d1ee-4c9b-a56b-b6495564ffcb',
+  };
+
+  const selectedOptionValue = Array.from(selectedOption)[0];
+
+  // Handle selection change
+  const handleSelectionChange = (key) => {
+    setSelectedOption(new Set([key]));
+    if (key === 'footage') {
+      setIsVideoOpen(true);
+    } else if (key === 'camera') {
+      setIsCameraOpen(true);
+    }
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://senstest.onrender.com/api');
-        if (!response.ok) {
-          throw new Error('Failed to fetch data');
-        }
-        const result = await response.json();
+        const response = await axios.get('https://senstest.onrender.com/api');
+        const result = response.data;
 
-        const newRegionData = { ...regionData }; // Clone existing regionData
+        if (!result || typeof result !== 'object') {
+          throw new Error('Invalid data format');
+        }
+
+        const newRegionData = { ...regionData };
 
         Object.keys(result).forEach((regionId) => {
           const regionDataFromAPI = result[regionId];
+          if (regionDataFromAPI && regionDataFromAPI.region_name) {
+            const regionName = regionDataFromAPI.region_name;
 
-          const regionName = regionDataFromAPI.region_name;
-
-          // Update the region data if pedestrian_flow_and_safety_index is higher
-          if (
-            !newRegionData[regionName] ||
-            regionDataFromAPI.pedestrian_flow_and_safety_index >
-              newRegionData[regionName].pedestrian_flow_and_safety_index
-          ) {
-            newRegionData[regionName] = regionDataFromAPI;
+            // Update the region data if pedestrian_flow_and_safety_index is higher
+            if (
+              !newRegionData[regionName] ||
+              regionDataFromAPI.pedestrian_flow_and_safety_index >
+                newRegionData[regionName]?.pedestrian_flow_and_safety_index
+            ) {
+              newRegionData[regionName] = regionDataFromAPI;
+            }
           }
         });
 
-        setRegionData(newRegionData); // Update state with new region data
+        setRegionData(newRegionData);
       } catch (error) {
-        console.log(error.message);
+        console.log('Error:', error.message);
       }
     };
 
     fetchData();
-  }, []); // No need to include mapRef, as fetchData doesn't depend on it
+  }, []);
 
   const test = () => {
     console.log('Region data:', regionData);
@@ -315,16 +352,6 @@ const Test = () => {
                   {modalData.region_name}
                 </ModalHeader>
                 <ModalBody>
-                  {/* <Progress
-                    aria-label="Pedestrian Flow and Safety Index"
-                    value={modalData.pedestrian_flow_and_safety_index}
-                    className="max-w-md"
-                  /> */}
-
-                  {/* <Button variant="bordered" color="primary">
-                    Pedestrian Flow and Safety Index:{' '}
-                    {modalData.pedestrian_flow_and_safety_index}
-                  </Button> */}
                   <Accordion selectionMode="multiple">
                     <AccordionItem
                       className=" font-light "
@@ -393,7 +420,7 @@ const Test = () => {
                       improve accessibility, contributing to the overall
                       functionality and comfort of public spaces.
                     </AccordionItem>
-                    {/* change traffic to benches */}
+
                     <AccordionItem
                       className="font-light "
                       key="5"
@@ -405,7 +432,7 @@ const Test = () => {
                           width={40}
                         />
                       }
-                      subtitle={`Score: ${modalData.traffic_light_index}`}
+                      subtitle={`Score: ${modalData.bench_index}`}
                       title="Benches"
                     >
                       Benches provide comfortable resting spots and enhance
@@ -455,15 +482,43 @@ const Test = () => {
                   >
                     Close
                   </Button>
-                  <Button
-                    color="primary"
-                    onPress={() => setIsVideoOpen(true)} // Opens the video modal
-                  >
-                    View footage
-                  </Button>
+                  <ButtonGroup variant="flat" color="primary">
+                    <Button
+                      onPress={() => handleSelectionChange(selectedOptionValue)}
+                    >
+                      {labelsMap[selectedOptionValue]}
+                    </Button>
+                    <Dropdown placement="bottom-end">
+                      <DropdownTrigger>
+                        <Button isIconOnly>
+                          <ChevronDownIcon />
+                        </Button>
+                      </DropdownTrigger>
+                      <DropdownMenu
+                        disallowEmptySelection
+                        aria-label="View Options"
+                        selectedKeys={selectedOption}
+                        selectionMode="single"
+                        onSelectionChange={setSelectedOption}
+                        className="max-w-[300px]"
+                      >
+                        <DropdownItem
+                          key="footage"
+                          description={descriptionsMap['footage']}
+                        >
+                          {labelsMap['footage']}
+                        </DropdownItem>
+                        <DropdownItem
+                          key="camera"
+                          description={descriptionsMap['camera']}
+                        >
+                          {labelsMap['camera']}
+                        </DropdownItem>
+                      </DropdownMenu>
+                    </Dropdown>
+                  </ButtonGroup>
                 </ModalFooter>
               </>
-
               {/* Video Modal */}
               {isVideoOpen && (
                 <Modal
@@ -472,16 +527,16 @@ const Test = () => {
                   onOpenChange={setIsVideoOpen}
                   isDismissable={true}
                   className={`${
-                    darkMode.value ? 'dark' : 'border-none '
+                    darkMode.value ? 'dark' : 'border-none'
                   } text-foreground bg-background border-none`}
                 >
-                  <ModalContent className="text-foreground ">
-                    <ModalHeader className="flex font-light  flex-row gap-2 justify-between mx-5 ">
+                  <ModalContent className="text-foreground">
+                    <ModalHeader className="flex font-light flex-row gap-2 justify-between mx-5">
                       Footage for {modalData?.region_name}
                     </ModalHeader>
                     <ModalBody>
                       <ReactPlayer
-                        url={modalData?.videoUrl} // Use the video URL from modalData
+                        url={modalData?.videoUrl}
                         playing
                         controls
                         width="100%"
@@ -494,6 +549,44 @@ const Test = () => {
                         color="danger"
                         variant="light"
                         onPress={() => setIsVideoOpen(false)}
+                      >
+                        Close
+                      </Button>
+                    </ModalFooter>
+                  </ModalContent>
+                </Modal>
+              )}
+
+              {/* Camera Point View Modal */}
+              {isCameraOpen && (
+                <Modal
+                  size="4xl"
+                  isOpen={isCameraOpen}
+                  onOpenChange={setIsCameraOpen}
+                  isDismissable={true}
+                  className={`${
+                    darkMode.value ? 'dark' : 'border-none'
+                  } text-foreground bg-background border-none`}
+                >
+                  <ModalContent className="text-foreground">
+                    <ModalHeader className="flex font-light flex-row gap-2 justify-between mx-5">
+                      Object Detection View for {modalData?.region_name}
+                    </ModalHeader>
+                    <ModalBody>
+                      <ReactPlayer
+                        url={modalData?.cameraUrl}
+                        playing
+                        controls
+                        width="100%"
+                        loop
+                        muted
+                      />
+                    </ModalBody>
+                    <ModalFooter>
+                      <Button
+                        color="danger"
+                        variant="light"
+                        onPress={() => setIsCameraOpen(false)}
                       >
                         Close
                       </Button>
