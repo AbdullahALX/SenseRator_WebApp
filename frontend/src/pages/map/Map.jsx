@@ -105,6 +105,8 @@ const Test = () => {
         const { data: result } = await axios.get(
           'https://senstest.onrender.com/api'
         );
+
+        console.log(result);
         if (!result || typeof result !== 'object')
           throw new Error('Invalid data format');
 
@@ -132,6 +134,8 @@ const Test = () => {
 
     fetchData();
   }, []);
+
+  useEffect(() => {}, []);
 
   const handleMapLoad = () => {
     if (!mapRef.current) return;
@@ -186,17 +190,19 @@ const Test = () => {
       const regionName = regionMapping[layerId];
       const region = regionData[regionName] || {};
 
-      setModalData({
+      setModalData((prevModalData) => ({
+        ...prevModalData,
         ...region,
         videoUrl: videoUrls[regionName.replace(/\s/g, '')],
         cameraUrl: cameraUrls[regionName.replace(/\s/g, '')],
-      });
+      }));
 
       setIsOpen(true);
     }
   };
+
   const test = () => {
-    console.log(regionData);
+    console.log(modalData);
   };
 
   const handleSelectionChange = (key) => {
