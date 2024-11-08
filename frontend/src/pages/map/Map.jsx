@@ -43,11 +43,12 @@ import getRatingDescription from './ratingDescriptions';
 const Test = () => {
   const WEB_MAP_API = import.meta.env.VITE_WEB_GEO_API_KEY;
   const [isOpen, setIsOpen] = useState(false);
-  const [modalData, setModalData] = useState(null);
+  const modalData = useRef(null);
   const [regionData, setRegionData] = useState({});
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const [isCameraOpen, setIsCameraOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(new Set(['footage']));
+  const [triggerRender, setTriggerRender] = useState(false); // State to trigger re-render
 
   const descriptionsMap = {
     footage: 'Watch region footage',
@@ -72,7 +73,7 @@ const Test = () => {
   const videoUrls = useMemo(
     () => ({
       MemoryMall:
-        'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/region_videos%2FMemory%20Mall.MP4?alt=media&token=21291795-6fbb-496a-a501-6384ef755b49',
+        'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/region_videos%2FMemory%20Mall%20%5BCOMPRESSED%5D.mp4?alt=media&token=bab5ae04-c580-4c78-bb06-600b8a3f26d6',
       HEC: 'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/region_videos%2FHEC%20%5BCOMPRESSED%5D.mp4?alt=media&token=10217fbd-d74a-49e7-9ca7-11e4708c6e6e',
       HealthCenter:
         'https://firebasestorage.googleapis.com/v0/b/senserator.appspot.com/o/region_videos%2FHealth%20Center%20%5BCOMPRESSED%5D.mp4?alt=media&token=24ce83e5-7dc8-41d7-97ff-9dfa4ddc2930',
@@ -164,6 +165,46 @@ const Test = () => {
 
   const selectedOptionValue = Array.from(selectedOption)[0];
 
+  // const handleMapClick = (e) => {
+  //   if (!mapRef.current) return;
+
+  //   const features = mapRef.current.queryRenderedFeatures(e.point, {
+  //     layers: [
+  //       'firstHalfLayer',
+  //       'secondHalfLayer',
+  //       'thirdHalfLayer',
+  //       'fourthHalfLayer',
+  //       'fifthHalfLayer',
+  //     ],
+  //   });
+
+  //   if (features.length) {
+  //     const layerId = features[0].layer.id;
+  //     const regionMapping = {
+  //       firstHalfLayer: 'Memory Mall',
+  //       secondHalfLayer: 'HEC',
+  //       thirdHalfLayer: 'Health Center',
+  //       fourthHalfLayer: 'Library',
+  //       fifthHalfLayer: 'Lake Claire',
+  //     };
+
+  //     const regionName = regionMapping[layerId];
+  //     const region = regionData[regionName] || {};
+  //     console.log('regionData:', regionData);
+
+  //     setModalData((prevModalData) => ({
+  //       ...prevModalData,
+  //       ...region,
+  //       videoUrl: videoUrls[regionName.replace(/\s/g, '')],
+  //       cameraUrl: cameraUrls[regionName.replace(/\s/g, '')],
+  //     }));
+  //     console.log('regionData After:', regionData);
+  //     console.log('modalData After:', modalData);
+
+  //     setIsOpen(true);
+  //   }
+  // };
+
   const handleMapClick = (e) => {
     if (!mapRef.current) return;
 
@@ -190,20 +231,23 @@ const Test = () => {
       const regionName = regionMapping[layerId];
       const region = regionData[regionName] || {};
 
-      setModalData((prevModalData) => ({
-        ...prevModalData,
+      // Update modalDataRef immediately
+      modalData.current = {
         ...region,
         videoUrl: videoUrls[regionName.replace(/\s/g, '')],
         cameraUrl: cameraUrls[regionName.replace(/\s/g, '')],
-      }));
+      };
 
-      setIsOpen(true);
+      console.log('New modalData:', modalData); // Log immediately
+
+      setIsOpen(true); // Show modal
+      setTriggerRender((prev) => !prev); // Trigger re-render to display the modal
     }
   };
 
-  const test = () => {
-    console.log(modalData);
-  };
+  // const test = () => {
+  //   console.log(modalData);
+  // };
 
   const handleSelectionChange = (key) => {
     setSelectedOption(new Set([key]));
@@ -337,7 +381,7 @@ const Test = () => {
           }}
         />
 
-        {modalData && (
+        {modalData.current && (
           <Modal
             size="4xl"
             isOpen={isOpen}
@@ -351,7 +395,7 @@ const Test = () => {
             <ModalContent className="text-foreground ">
               <>
                 <ModalHeader className="flex  tracking-wider font-medium text-default-600  flex-row gap-2 justify-between mx-5 ">
-                  {modalData.region_name}
+                  {modalData.current.region_name}
                 </ModalHeader>
                 <ModalBody>
                   <Accordion selectionMode="multiple">
@@ -367,14 +411,18 @@ const Test = () => {
                         />
                       }
                       subtitle={`Rating: ${
-                        getRatingDescription(modalData.tree_index, 'tree_index')
-                          .rating
+                        getRatingDescription(
+                          modalData.current.tree_index,
+                          'tree_index'
+                        ).rating
                       } `}
                       title="Trees "
                     >
                       {` ${
-                        getRatingDescription(modalData.tree_index, 'tree_index')
-                          .description
+                        getRatingDescription(
+                          modalData.current.tree_index,
+                          'tree_index'
+                        ).description
                       } `}
                     </AccordionItem>
                     <AccordionItem
@@ -390,7 +438,7 @@ const Test = () => {
                       }
                       subtitle={`Rating: ${
                         getRatingDescription(
-                          modalData.crosswalk_index,
+                          modalData.current.crosswalk_index,
                           'crosswalk_index'
                         ).rating
                       } `}
@@ -398,7 +446,7 @@ const Test = () => {
                     >
                       {` ${
                         getRatingDescription(
-                          modalData.crosswalk_index,
+                          modalData.current.crosswalk_index,
                           'crosswalk_index'
                         ).description
                       } `}
@@ -416,7 +464,7 @@ const Test = () => {
                       }
                       subtitle={`Rating: ${
                         getRatingDescription(
-                          modalData.street_light_index,
+                          modalData.current.street_light_index,
                           'street_light_index'
                         ).rating
                       } `}
@@ -424,7 +472,7 @@ const Test = () => {
                     >
                       {` ${
                         getRatingDescription(
-                          modalData.street_light_index,
+                          modalData.current.street_light_index,
                           'street_light_index'
                         ).description
                       } `}
@@ -442,7 +490,7 @@ const Test = () => {
                       }
                       subtitle={`Rating: ${
                         getRatingDescription(
-                          modalData.sidewalk_index,
+                          modalData.current.sidewalk_index,
                           'sidewalk_index'
                         ).rating
                       } `}
@@ -450,7 +498,7 @@ const Test = () => {
                     >
                       {` ${
                         getRatingDescription(
-                          modalData.sidewalk_index,
+                          modalData.current.sidewalk_index,
                           'sidewalk_index'
                         ).description
                       } `}
@@ -469,7 +517,7 @@ const Test = () => {
                       }
                       subtitle={`Rating: ${
                         getRatingDescription(
-                          modalData.bench_index,
+                          modalData.current.bench_index,
                           'bench_index'
                         ).rating
                       } `}
@@ -477,7 +525,7 @@ const Test = () => {
                     >
                       {` ${
                         getRatingDescription(
-                          modalData.bench_index,
+                          modalData.current.bench_index,
                           'bench_index'
                         ).description
                       } `}
@@ -495,7 +543,7 @@ const Test = () => {
                       }
                       subtitle={`Rating: ${
                         getRatingDescription(
-                          modalData.stop_sign_index,
+                          modalData.current.stop_sign_index,
                           'stop_sign_index'
                         ).rating
                       } `}
@@ -503,7 +551,7 @@ const Test = () => {
                     >
                       {` ${
                         getRatingDescription(
-                          modalData.stop_sign_index,
+                          modalData.current.stop_sign_index,
                           'stop_sign_index'
                         ).description
                       } `}
@@ -512,7 +560,7 @@ const Test = () => {
                   <Progress
                     label="Pedestrian Flow and Safety Score"
                     size="md"
-                    value={modalData.pedestrian_flow_and_safety_index}
+                    value={modalData.current.pedestrian_flow_and_safety_index}
                     maxValue={100}
                     color="warning"
                     showValueLabel={true}
@@ -583,11 +631,11 @@ const Test = () => {
                 >
                   <ModalContent className="text-foreground">
                     <ModalHeader className="flex font-light flex-row gap-2 justify-between mx-5">
-                      Footage for {modalData?.region_name}
+                      Footage for {modalData.current?.region_name}
                     </ModalHeader>
                     <ModalBody>
                       <ReactPlayer
-                        url={modalData?.videoUrl}
+                        url={modalData.current?.videoUrl}
                         playing
                         controls
                         width="100%"
@@ -621,11 +669,11 @@ const Test = () => {
                 >
                   <ModalContent className="text-foreground">
                     <ModalHeader className="flex font-light flex-row gap-2 justify-between mx-5">
-                      Object Detection View for {modalData?.region_name}
+                      Object Detection View for {modalData.current?.region_name}
                     </ModalHeader>
                     <ModalBody>
                       <ReactPlayer
-                        url={modalData?.cameraUrl}
+                        url={modalData.current?.cameraUrl}
                         playing
                         controls
                         width="100%"

@@ -18,7 +18,7 @@ export const users = [
   {
     id: 2,
     name: 'Abdullah AL Hinaey',
-    role: 'Full Stack Web Development',
+    role: 'Full Stack Web Development, Web App Manager',
     team: 'SenseRator 2.0',
     avatar: 'https://i.ibb.co/BC0rzsr/1696266382719.jpg',
     email: 'ab618186@ucf.edu',
@@ -26,7 +26,7 @@ export const users = [
   {
     id: 3,
     name: 'Kristian Michel',
-    role: 'Pedestrian Flow & Safety (PFS) Score',
+    role: 'Pedestrian Flow & Safety Score, Web App Frontend Development',
     team: 'SenseRator 2.0',
     avatar: 'https://i.ibb.co/0MmdjBK/Kristian.jpg',
     email: 'kr544295@ucf.edu',

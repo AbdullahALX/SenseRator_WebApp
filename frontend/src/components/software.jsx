@@ -160,7 +160,7 @@ export default function software() {
                 tracker compares detected objects to previously detected objects
                 to determine whether it is the same object or not. Implementing
                 object tracking has removed the majority of overcounting and has
-                been a great asset in gathering
+                been a great asset in gathering accurate results.
               </p>
             </CardBody>
           </Card>
@@ -198,7 +198,7 @@ export default function software() {
           </Card>
         </Tab>
 
-        <Tab title="Video Recording">
+        <Tab title="Video Compression">
           <Card className="w-full h-full">
             <CardHeader className="flex gap-3">
               <Icon icon="eos-icons:ai" width={40} />
