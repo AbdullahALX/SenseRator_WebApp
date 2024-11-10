@@ -206,8 +206,9 @@ const Test = () => {
   // };
 
   const handleMapClick = (e) => {
-    if (!mapRef.current) return;
+    if (!mapRef.current || Object.keys(regionData).length === 0) return;
 
+    console.log('test', regionData);
     const features = mapRef.current.queryRenderedFeatures(e.point, {
       layers: [
         'firstHalfLayer',

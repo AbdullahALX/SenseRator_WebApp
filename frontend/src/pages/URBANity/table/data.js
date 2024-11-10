@@ -42,4 +42,13 @@ export const users = [
       'https://www.cecs.ucf.edu/sagarwal/wp-content/uploads/2019/11/shakib_cropped-263x216.jpeg',
     email: 'SMustavee@knights.ucf.edu',
   },
+  {
+    id: 5,
+    name: 'Md Mahmudul Islam',
+    role: 'Ph.D. Student, Department of Civil, Environmental & Construction Engineering',
+    team: 'URBANity',
+    avatar:
+      'https://www.cecs.ucf.edu/sagarwal/wp-content/uploads/2023/02/242554150_4771196172899938_77764123119025431_n-300x300.jpg',
+    email: '',
+  },
 ];
