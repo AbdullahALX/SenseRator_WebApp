@@ -8,7 +8,7 @@ export const users = [
   {
     id: 1,
     name: 'Alexandra Ramlogan Salgado',
-    role: 'Project Manager, Web App Frontend Development',
+    role: 'Project Manager',
     team: 'SenseRator 2.0',
     status: 'active',
     age: '22',

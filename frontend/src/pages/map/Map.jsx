@@ -103,6 +103,7 @@ const Test = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        console.log(1);
         const { data: result } = await axios.get(
           'https://senstest.onrender.com/api'
         );
