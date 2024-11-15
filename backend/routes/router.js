@@ -36,4 +36,8 @@ router.get('/api', async (req, res) => {
   }
 });
 
+router.get('/test', async (req, res) => {
+  res.status(201).send('Server is up and running!');
+});
+
 export default router;
