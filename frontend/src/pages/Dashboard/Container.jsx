@@ -128,7 +128,7 @@ export default function Container({
         <Button
           as={Link}
           target="_blank"
-          to="https://github.com/NikoKaramitos/SenseRator2.0"
+          to="https://github.com/orgs/SenseRatorUCF/repositories"
           fullWidth
           className="justify-start text-default-600"
           startContent={

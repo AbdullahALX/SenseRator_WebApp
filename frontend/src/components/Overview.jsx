@@ -10,6 +10,7 @@ import {
 } from '@nextui-org/react';
 import { Icon } from '@iconify/react';
 
+import finalDoc from '../assets/l10_Final_Design Document.pdf';
 const Overview = () => {
   return (
     <div className="p-4 flex flex-col gap-7">
@@ -43,7 +44,7 @@ const Overview = () => {
         </CardBody>
         <Divider />
         <CardFooter>
-          <Link isExternal showAnchorIcon href="#">
+          <Link isExternal showAnchorIcon href={finalDoc}>
             Learn more about it.
           </Link>
         </CardFooter>
@@ -117,53 +118,6 @@ const Overview = () => {
           </CardBody>
         </Card>
       </div>
-
-      {/* <Card className="max-w-full">
-        <CardHeader className="flex gap-3">
-          <Icon
-            className="text-default-600"
-            icon="material-symbols:overview-key-rounded"
-            width={40}
-          />
-          <div className="flex flex-col">
-            <p className="text-md">Project Goals</p>
-            <p className="text-small text-default-500">SenseRator 2.0</p>
-          </div>
-        </CardHeader>
-        <Divider />
-        <CardBody>
-          <p className="leading-8 text-medium font-light">
-            In 2022, the state of Florida ranked 4th in State Pedestrian
-            Fatality Rates, with 773 deaths. According to the National Highway
-            Traffic Safety Administration (NHTSA), Florida has a pedestrian
-            fatality rate of 3.47 per 100,000 population. In an article
-            published by Central Florida Public Media, Joe Mario Pedersen states
-            that Orlando was among the top 20 deadliest cities for pedestrians
-            in the country, ranking at number 18 in 2024.
-            <br />
-            A contributing factor to these high rates is the lack of walkable
-            structures in large metropolitan areas like Orlando. SenseRator 2.0
-            aims to bring attention to the need for safe, walkable urban
-            structures. These include, but are not limited to, sidewalks,
-            crosswalks, lower speed limits, and appropriate signage and lights.
-            Additionally, walkable elements like trees and benches foster
-            community and improve residents' health.
-            <br />
-            SenseRator 2.0 seeks to raise awareness of pedestrian safety in
-            Central Florida by leveraging smart city and AI-driven technology.
-          </p>
-        </CardBody>
-        <Divider />
-        <CardFooter>
-          <Link
-            isExternal
-            showAnchorIcon
-            href="https://github.com/nextui-org/nextui"
-          >
-            Learn more about it.
-          </Link>
-        </CardFooter>
-      </Card> */}
     </div>
   );
 };
