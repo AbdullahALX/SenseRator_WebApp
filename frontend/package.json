@@ -12,7 +12,10 @@
   "dependencies": {
     "@iconify/react": "^5.0.2",
     "@nextui-org/react": "^2.4.6",
+    "@react-three/drei": "^9.115.0",
+    "@react-three/fiber": "^8.17.10",
     "axios": "^1.7.4",
+    "firebase": "^11.0.2",
     "framer-motion": "^11.3.29",
     "iconify": "^1.4.0",
     "lucide-react": "^0.429.0",
@@ -23,12 +26,10 @@
     "react-map-gl": "^7.1.7",
     "react-player": "^2.16.0",
     "react-router-dom": "^6.26.1",
-    "use-dark-mode": "^2.3.1",
-    "@react-three/drei": "^9.115.0",
-    "@react-three/fiber": "^8.17.10",
     "react-stl-viewer": "^2.5.0",
     "three": "^0.170.0",
-    "three.js": "^0.77.1"
+    "three.js": "^0.77.1",
+    "use-dark-mode": "^2.3.1"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",

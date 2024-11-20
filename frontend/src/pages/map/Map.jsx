@@ -7,6 +7,8 @@ import Map, {
   Source,
   Layer,
 } from 'react-map-gl';
+import { ref, get, child } from 'firebase/database';
+import { db } from '../../config/firebaseConfig';
 
 import {
   Modal,
@@ -99,43 +101,89 @@ const Test = () => {
     }),
     []
   );
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         console.log(1);
-        const { data: result } = await axios.get(
-          'https://senstest.onrender.com/api'
-        );
+        // Fetch data from Firebase
+        const dbRef = ref(db);
+        const snapshot = await get(child(dbRef, 'regions'));
 
-        console.log(result);
-        if (!result || typeof result !== 'object')
-          throw new Error('Invalid data format');
+        if (snapshot.exists()) {
+          const result = snapshot.val();
 
-        const updatedRegionData = Object.keys(result).reduce(
-          (acc, regionId) => {
-            const regionInfo = result[regionId];
-            if (regionInfo?.region_name) {
-              const existing = acc[regionInfo.region_name] || {};
-              acc[regionInfo.region_name] =
-                regionInfo.pedestrian_flow_and_safety_index >
-                (existing.pedestrian_flow_and_safety_index || 0)
-                  ? regionInfo
-                  : existing;
-            }
-            return acc;
-          },
-          {}
-        );
+          console.log(result);
 
-        setRegionData(updatedRegionData);
+          if (!result || typeof result !== 'object') {
+            throw new Error('Invalid data format');
+          }
+
+          // Process the data as you did previously
+          const updatedRegionData = Object.keys(result).reduce(
+            (acc, regionId) => {
+              const regionInfo = result[regionId];
+              if (regionInfo?.region_name) {
+                const existing = acc[regionInfo.region_name] || {};
+                acc[regionInfo.region_name] =
+                  regionInfo.pedestrian_flow_and_safety_index >
+                  (existing.pedestrian_flow_and_safety_index || 0)
+                    ? regionInfo
+                    : existing;
+              }
+              return acc;
+            },
+            {}
+          );
+
+          setRegionData(updatedRegionData);
+        } else {
+          throw new Error('No data available');
+        }
       } catch (error) {
         console.error('Error:', error.message);
+        setError(error.message);
       }
     };
 
     fetchData();
   }, []);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       console.log(1);
+  //       const { data: result } = await axios.get(
+  //         'https://senstest.onrender.com/api'
+  //       );
+
+  //       console.log(result);
+  //       if (!result || typeof result !== 'object')
+  //         throw new Error('Invalid data format');
+
+  //       const updatedRegionData = Object.keys(result).reduce(
+  //         (acc, regionId) => {
+  //           const regionInfo = result[regionId];
+  //           if (regionInfo?.region_name) {
+  //             const existing = acc[regionInfo.region_name] || {};
+  //             acc[regionInfo.region_name] =
+  //               regionInfo.pedestrian_flow_and_safety_index >
+  //               (existing.pedestrian_flow_and_safety_index || 0)
+  //                 ? regionInfo
+  //                 : existing;
+  //           }
+  //           return acc;
+  //         },
+  //         {}
+  //       );
+
+  //       setRegionData(updatedRegionData);
+  //     } catch (error) {
+  //       console.error('Error:', error.message);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
 
   useEffect(() => {}, []);
 
