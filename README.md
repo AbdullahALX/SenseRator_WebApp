@@ -69,4 +69,4 @@ The `backend` directory contains the Node.js server responsible for API endpoint
     ```
 
 # Live Demo 
-https://develop--senstest.netlify.app/
+[https://senserator2.netlify.app/](https://senserator2.netlify.app/)
